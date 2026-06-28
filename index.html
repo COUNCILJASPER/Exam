@@ -1,4 +1,243 @@
-// ===== ANATOMY & PHYSIOLOGY QUESTIONS (50 Questions) =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMCN Exam Prep - 100 Questions</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1628, #1a3a6b, #2d5aa0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            text-align: center;
+            width: 600px;
+            max-width: 95%;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+        .logo { font-size: 60px; margin-bottom: 10px; }
+        h1 { color: #0a1628; font-size: 28px; }
+        .subtitle { color: #2d5aa0; font-size: 14px; font-weight: bold; }
+        hr { margin: 15px 0; border: 1px solid #e0e7ff; }
+        h2 { color: #1a3a6b; font-size: 18px; margin-bottom: 15px; }
+        input {
+            width: 90%;
+            padding: 14px;
+            margin: 8px 0;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+        input:focus { border-color: #2d5aa0; outline: none; }
+        button {
+            background: linear-gradient(135deg, #1a3a6b, #2d5aa0);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+        button:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(45,90,160,0.4); }
+        .footer { color: #9ca3af; font-size: 12px; margin-top: 20px; }
+        .instructions ol { text-align: left; padding-left: 25px; margin: 20px 0; }
+        .instructions li { margin: 12px 0; font-size: 15px; }
+        #questionText {
+            font-size: 18px;
+            color: #0a1628;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+            text-align: left;
+        }
+        #optionsContainer button {
+            background: #f8fafc;
+            color: #1f2937;
+            border: 2px solid #e2e8f0;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            text-align: left;
+            transition: all 0.3s;
+            width: 100%;
+            display: block;
+            margin: 8px 0;
+        }
+        #optionsContainer button:hover { background: #eff6ff; border-color: #2d5aa0; }
+        #optionsContainer button.selected {
+            background: #2d5aa0;
+            color: white;
+            border-color: #1a3a6b;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2d5aa0, #4f8cf7);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        #scoreDisplay { font-size: 48px; font-weight: bold; color: #2d5aa0; }
+        #timerDisplay { font-size: 18px; color: #dc2626; font-weight: bold; margin: 10px 0; }
+        .hidden { display: none; }
+        .text-left { text-align: left; }
+        .review-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 12px 0;
+            text-align: left;
+            border-left: 4px solid #2d5aa0;
+        }
+        .review-item.correct-review { border-left-color: #22c55e; }
+        .review-item.wrong-review { border-left-color: #ef4444; }
+        .review-question { font-weight: bold; color: #0a1628; font-size: 14px; }
+        .review-answer { margin-top: 5px; font-size: 13px; }
+        .review-answer .correct-text { color: #22c55e; font-weight: bold; }
+        .review-answer .wrong-text { color: #ef4444; font-weight: bold; }
+        .review-answer .your-answer { color: #6b7280; }
+        .review-explanation {
+            margin-top: 8px;
+            padding: 10px;
+            background: #f0f7ff;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #1a3a6b;
+            border-left: 3px solid #2d5aa0;
+        }
+        .topic-tag {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #1a3a6b;
+            font-size: 11px;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-bottom: 5px;
+        }
+        #resultMessage { font-size: 18px; margin: 20px 0; }
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .filter-buttons button {
+            padding: 8px 20px;
+            font-size: 13px;
+            margin: 2px;
+        }
+        .filter-buttons button.active {
+            background: #0a1628;
+        }
+        @media (max-width: 480px) {
+            .container { padding: 25px; }
+            h1 { font-size: 22px; }
+            #questionText { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <!-- ===== LOGIN PAGE ===== -->
+    <div id="loginPage">
+        <div class="logo">🏥</div>
+        <h1>NMCN Exam Prep</h1>
+        <p class="subtitle">Nursing & Midwifery Council of Nigeria</p>
+        <p style="font-size:13px; color:#2d5aa0; font-weight:bold;">📚 100 Questions • ⏱️ 45 Minutes</p>
+        <hr>
+        <h2>Login to Start Exam</h2>
+        <input type="text" id="studentName" placeholder="Enter your full name">
+        <input type="text" id="studentId" placeholder="Enter your student ID">
+        <br><br>
+        <button onclick="startExam()">Start Exam</button>
+        <p class="footer">© 2026 NMCN Exam Prep</p>
+    </div>
+
+    <!-- ===== INSTRUCTIONS PAGE ===== -->
+    <div id="instructionsPage" class="hidden">
+        <div class="logo">📋</div>
+        <h1>NMCN Exam Prep</h1>
+        <hr>
+        <h2>Exam Instructions</h2>
+        <div class="instructions">
+            <ol>
+                <li>This exam contains <strong>100 questions</strong>.</li>
+                <li>Each question has <strong>4 options</strong>.</li>
+                <li>Select the <strong>best answer</strong> for each question.</li>
+                <li>You <strong>cannot go back</strong> to previous questions.</li>
+                <li>After completing the exam, you'll see <strong>all questions with correct answers AND explanations</strong>.</li>
+                <li>Time limit: <strong>45 minutes</strong>.</li>
+                <li><strong>Good luck!</strong></li>
+            </ol>
+        </div>
+        <button onclick="beginExam()">Start Exam</button>
+        <p class="footer">© 2026 NMCN Exam Prep</p>
+    </div>
+
+    <!-- ===== EXAM PAGE ===== -->
+    <div id="examPage" class="hidden">
+        <div class="logo">📝</div>
+        <h1>NMCN Exam Prep</h1>
+        <hr>
+        <div id="studentInfo" style="font-size:14px; color:#6b7280;"></div>
+        <div id="timerDisplay">⏱️ 45:00</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+        </div>
+        <div id="questionNumber" style="font-size:14px; color:#6b7280;">Question 1 of 50</div>
+        <div id="questionText">Loading question...</div>
+        <div id="optionsContainer"></div>
+        <button onclick="nextQuestion()" style="margin-top:20px;">Next Question →</button>
+        <p class="footer">© 2026 NMCN Exam Prep</p>
+    </div>
+
+    <!-- ===== RESULT PAGE ===== -->
+    <div id="resultPage" class="hidden">
+        <div style="font-size:60px; margin-bottom:10px;">🏆</div>
+        <h1>Exam Complete!</h1>
+        <div id="scoreDisplay">0/50</div>
+        <div id="percentageDisplay" style="font-size:24px; font-weight:bold; color:#1a3a6b;">0%</div>
+        <div id="resultMessage" style="font-size:18px; margin:20px 0;"></div>
+        <hr>
+        <h3 style="color:#1a3a6b;">📖 Review Your Answers with Explanations</h3>
+        <div class="filter-buttons">
+            <button onclick="filterReview('all')" class="active" id="filterAll">All</button>
+            <button onclick="filterReview('correct')" id="filterCorrect">✅ Correct</button>
+            <button onclick="filterReview('wrong')" id="filterWrong">❌ Wrong</button>
+        </div>
+        <div id="reviewContainer" class="text-left"></div>
+        <hr>
+        <button onclick="restartExam()">🔄 Take New Exam</button>
+        <button onclick="location.reload()" style="background:#9ca3af;">🏠 Home</button>
+        <p class="footer">© 2026 NMCN Exam Prep</p>
+    </div>
+</div>
+
+<script>
+// ===== QUESTIONS (50 Anatomy & Physiology Questions) =====
 const questions = [
     // SKIN & INTEGUMENTARY SYSTEM (1-6)
     {
@@ -143,7 +382,7 @@ const questions = [
         question: "The auditory ossicles (malleus, incus, stapes) are located in the:",
         options: ["Inner ear", "Middle ear", "Outer ear", "Skull"],
         answer: 1,
-        explanation: "The auditory ossicles (malleus, incus, stapes) are located in the middle ear and transmit sound vibrations."
+        explanation: "The auditory ossicles are located in the middle ear and transmit sound vibrations."
     },
 
     // NERVOUS SYSTEM (21-30)
@@ -364,3 +603,137 @@ const questions = [
         explanation: "The trachea divides into the right and left primary bronchi, which enter the lungs."
     }
 ];
+
+// ===== EXAM VARIABLES =====
+let currentQuestionIndex = 0;
+let score = 0;
+let selectedOption = null;
+let timer = 45;
+let timerInterval = null;
+let examStarted = false;
+let userAnswers = [];
+let currentFilter = 'all';
+
+// ===== FUNCTIONS =====
+
+function showPage(pageId) {
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('instructionsPage').classList.add('hidden');
+    document.getElementById('examPage').classList.add('hidden');
+    document.getElementById('resultPage').classList.add('hidden');
+    document.getElementById(pageId).classList.remove('hidden');
+}
+
+function startExam() {
+    const name = document.getElementById('studentName').value.trim();
+    const id = document.getElementById('studentId').value.trim();
+    if (name === '') { alert('Please enter your full name.'); return; }
+    if (id === '') { alert('Please enter your student ID.'); return; }
+    localStorage.setItem('studentName', name);
+    localStorage.setItem('studentId', id);
+    showPage('instructionsPage');
+}
+
+function beginExam() {
+    const name = localStorage.getItem('studentName');
+    if (!name) { alert('Please login first!'); showPage('loginPage'); return; }
+    showPage('examPage');
+    if (!examStarted) {
+        examStarted = true;
+        userAnswers = [];
+        loadQuestion();
+        startTimer();
+    }
+}
+
+function loadQuestion() {
+    if (currentQuestionIndex >= questions.length) {
+        showResult();
+        return;
+    }
+    const q = questions[currentQuestionIndex];
+    document.getElementById('questionNumber').textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+    document.getElementById('questionText').innerHTML = `<span class="topic-tag">${q.topic}</span><br><br>${q.question}`;
+    document.getElementById('studentInfo').textContent = '👤 ' + localStorage.getItem('studentName') + ' | ID: ' + localStorage.getItem('studentId');
+    
+    const container = document.getElementById('optionsContainer');
+    container.innerHTML = '';
+    const labels = ['A', 'B', 'C', 'D'];
+    q.options.forEach((option, index) => {
+        const btn = document.createElement('button');
+        btn.innerHTML = '<span style="font-weight:bold;">' + labels[index] + '.</span> ' + option;
+        btn.onclick = function() { selectOption(index); };
+        container.appendChild(btn);
+    });
+    selectedOption = null;
+    updateProgress();
+}
+
+function selectOption(index) {
+    selectedOption = index;
+    const buttons = document.querySelectorAll('#optionsContainer button');
+    buttons.forEach((btn, i) => {
+        btn.classList.toggle('selected', i === index);
+    });
+}
+
+function nextQuestion() {
+    if (selectedOption === null) {
+        alert('Please select an answer!');
+        return;
+    }
+    userAnswers.push(selectedOption);
+    
+    if (questions[currentQuestionIndex].answer === selectedOption) {
+        score++;
+    }
+    currentQuestionIndex++;
+    loadQuestion();
+}
+
+function updateProgress() {
+    const progress = ((currentQuestionIndex) / questions.length) * 100;
+    document.getElementById('progressFill').style.width = progress + '%';
+}
+
+function showResult() {
+    clearInterval(timerInterval);
+    showPage('resultPage');
+    const percentage = (score / questions.length) * 100;
+    document.getElementById('scoreDisplay').textContent = score + '/' + questions.length;
+    document.getElementById('percentageDisplay').textContent = Math.round(percentage) + '%';
+    
+    let message = '';
+    if (percentage >= 80) message = '🎉 Excellent! You are well prepared for NMCN!';
+    else if (percentage >= 60) message = '👍 Good job! Keep practicing!';
+    else if (percentage >= 40) message = '📚 Need more study. Review weak areas.';
+    else message = '💪 Keep studying! You will improve.';
+    document.getElementById('resultMessage').textContent = message;
+    
+    displayReview();
+}
+
+function displayReview() {
+    const container = document.getElementById('reviewContainer');
+    container.innerHTML = '';
+    
+    const labels = ['A', 'B', 'C', 'D'];
+    
+    questions.forEach((q, index) => {
+        const userAnswer = userAnswers[index] !== undefined ? userAnswers[index] : -1;
+        const isCorrect = userAnswer === q.answer;
+        
+        // Apply filter
+        if (currentFilter === 'correct' && !isCorrect) return;
+        if (currentFilter === 'wrong' && isCorrect) return;
+        
+        const div = document.createElement('div');
+        div.className = 'review-item ' + (isCorrect ? 'correct-review' : 'wrong-review');
+        
+        let answerText = '';
+        if (userAnswer === -1) {
+            answerText = '<span class="wrong-text">Not answered</span>';
+        } else {
+            answerText = '<span class="your-answer">Your answer: <strong>' + labels[userAnswer] + '</strong></span>';
+            if (!isCorrect) {
+                answerText += ' | <span class
