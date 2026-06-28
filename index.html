@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMCN Exam Prep</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1628, #1a3a6b, #2d5aa0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            text-align: center;
+            width: 500px;
+            max-width: 95%;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+        .logo { font-size: 60px; margin-bottom: 10px; }
+        h1 { color: #0a1628; font-size: 28px; }
+        .subtitle { color: #2d5aa0; font-size: 14px; font-weight: bold; }
+        hr { margin: 15px 0; border: 1px solid #e0e7ff; }
+        h2 { color: #1a3a6b; font-size: 18px; margin-bottom: 15px; }
+        input {
+            width: 90%;
+            padding: 14px;
+            margin: 8px 0;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+        input:focus { border-color: #2d5aa0; outline: none; }
+        button {
+            background: linear-gradient(135deg, #1a3a6b, #2d5aa0);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+        button:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(45,90,160,0.4); }
+        .footer { color: #9ca3af; font-size: 12px; margin-top: 20px; }
+        .instructions ol { text-align: left; padding-left: 25px; margin: 20px 0; }
+        .instructions li { margin: 12px 0; font-size: 15px; }
+        #questionText {
+            font-size: 20px;
+            color: #0a1628;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+            text-align: left;
+        }
+        #optionsContainer button {
+            background: #f8fafc;
+            color: #1f2937;
+            border: 2px solid #e2e8f0;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            text-align: left;
+            transition: all 0.3s;
+            width: 100%;
+            display: block;
+            margin: 8px 0;
+        }
+        #optionsContainer button:hover { background: #eff6ff; border-color: #2d5aa0; }
+        #optionsContainer button.selected {
+            background: #2d5aa0;
+            color: white;
+            border-color: #1a3a6b;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2d5aa0, #4f8cf7);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        #scoreDisplay { font-size: 48px; font-weight: bold; color: #2d5aa0; }
+        #timerDisplay { font-size: 18px; color: #dc2626; font-weight: bold; margin: 10px 0; }
+        .hidden { display: none; }
+        @media (max-width: 480px) {
+            .container { padding: 25px; }
+            h1 { font-size: 22px; }
+            #questionText { font-size: 17px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <!-- ===== LOGIN PAGE ===== -->
+    <div id="loginPage">
+        <div class="logo">🏥</div>
+        <h1>NMCN Exam Prep</h1>
+        <p class="subtitle">Nursing & Midwifery Council of Nigeria</p>
+        <hr>
+        <h2>Login to Start Exam</h2>
+        <input type="text" id="studentName" placeholder="Enter your full name">
+        <input type="text" id="studentId" placeholder="Enter your student ID">
+        <br><br>
+        <button onclick="startExam()">Start Exam</button>
+        <p class="footer">© 2026 NMCN Exam Prep</p>
+    </div>
+
+    <!-- ===== INSTRUCTIONS PAGE ===== -->
+    <div id="instructionsPage" class="hidden">
+        <div class="logo">📋</div>
+        <h1>NMCN Exam Prep</h1>
+        <hr>
+        <h2>Exam Instructions</h2>
+        <div class="instructions">
+            <ol>
+                <li>This exam contains <strong>20 questions</strong>.</li>
+                <li>Each question has <strong>4 options</strong>.</li>
+                <li>Select the <strong>best answer</strong> for each question.</li>
+                <li>You <strong>cannot go back</strong> to previous questions.</li>
+                <li>Your score will be displayed at the end.</li>
+                <li>Time limit: <strong>30 minutes</strong>.</li>
+                <li><strong>Good luck!</strong></li>
+            </ol>
+        </div>
+        <button onclick="beginExam()">Start Exam</button>
+        <p class="footer">© 2026 NMCN Exam Prep</p>
+    </div>
+
+    <!-- ===== EXAM PAGE ===== -->
+    <div id="examPage" class="hidden">
+        <div class="logo">📝</div>
+        <h1>NMCN Exam Prep</h1>
+        <hr>
+        <div id="studentInfo" style="font-size:14px; color:#6b7280;"></div>
+        <div id="timerDisplay">⏱️ 30:00</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+        </div>
+        <div id="questionNumber" style="font-size:14px; color:#6b7280;">Question 1 of 20</div>
+        <div id="questionText">Loading question...</div>
+        <div id="optionsContainer"></div>
+        <button onclick="nextQuestion()" style="margin-top:20px;">Next Question →</button>
+        <p class="footer">© 2026 NMCN Exam Prep</p>
+    </div>
+
+    <!-- ===== RESULT PAGE ===== -->
+    <div id="resultPage" class="hidden">
+        <div style="font-size:60px; margin-bottom:10px;">🏆</div>
+        <h1>Exam Complete!</h1>
+        <div id="scoreDisplay">0/20</div>
+        <div id="percentageDisplay" style="font-size:24px; font-weight:bold; color:#1a3a6b;">0%</div>
+        <div id="resultMessage" style="font-size:18px; margin:20px 0;"></div>
+        <hr>
+        <button onclick="restartExam()">🔄 Take New Exam</button>
+        <button onclick="location.reload()" style="background:#9ca3af;">🏠 Home</button>
+        <p class="footer">© 2026 NMCN Exam Prep</p>
+    </div>
+</div>
+
+<script>
+    // ===== QUESTIONS =====
+    const questions = [
+        { question: "The heart is located in which cavity?", options: ["Thoracic", "Abdominal", "Pelvic", "Cranial"], answer: 0 },
+        { question: "Which drug is used to treat hypertension?", options: ["Metformin", "Lisinopril", "Omeprazole", "Ciprofloxacin"], answer: 1 },
+        { question: "What is the first step in CPR?", options: ["Chest compressions", "Check responsiveness", "Rescue breaths", "Apply AED"], answer: 1 },
+        { question: "What is the leading cause of maternal mortality in Nigeria?", options: ["Eclampsia", "Postpartum hemorrhage", "Sepsis", "Obstructed labor"], answer: 1 },
+        { question: "Which vitamin is essential for blood clotting?", options: ["Vitamin A", "Vitamin B12", "Vitamin C", "Vitamin K"], answer: 3 },
+        { question: "What is the normal adult resting heart rate?", options: ["40-50 bpm", "60-100 bpm", "110-120 bpm", "130-150 bpm"], answer: 1 },
+        { question: "What is the antidote for opioid overdose?", options: ["Naloxone", "Epinephrine", "Atropine", "Lorazepam"], answer: 0 },
+        { question: "What is the primary purpose of hand hygiene?", options: ["Clean hands", "Prevent cross-infection", "Professionalism", "Remove odors"], answer: 1 },
+        { question: "Which position is recommended for a patient in shock?", options: ["Supine with legs elevated", "Prone", "Left lateral", "Fowler's"], answer: 0 },
+        { question: "What is the normal adult respiratory rate?", options: ["8-12/min", "12-20/min", "22-28/min", "30-36/min"], answer: 1 },
+        { question: "Which route is used for insulin administration?", options: ["Oral", "Intravenous", "Subcutaneous", "Intramuscular"], answer: 2 },
+        { question: "What is the recommended duration of exclusive breastfeeding?", options: ["3 months", "6 months", "1 year", "2 years"], answer: 1 },
+        { question: "Which electrolyte is essential for muscle contraction?", options: ["Sodium", "Potassium", "Calcium", "Magnesium"], answer: 2 },
+        { question: "What is the medical term for high blood pressure?", options: ["Hypotension", "Hypertension", "Tachycardia", "Bradycardia"], answer: 1 },
+        { question: "What is a key principle of patient-centered care?", options: ["Follow doctor's orders", "Respect patient autonomy", "Minimize interaction", "Standardize treatment"], answer: 1 },
+        { question: "What is the normal body temperature in Celsius?", options: ["34.0-35.5°C", "36.5-37.5°C", "38.0-39.5°C", "40.0-41.5°C"], answer: 1 },
+        { question: "Which is a risk factor for falls in the elderly?", options: ["Strong vision", "Regular exercise", "Polypharmacy", "Good nutrition"], answer: 2 },
+        { question: "What is a sign of pre-eclampsia?", options: ["Hypotension", "Proteinuria", "Bradycardia", "Anemia"], answer: 1 },
+        { question: "Which class of antibiotics should be avoided in children?", options: ["Penicillin", "Tetracyclines", "Macrolides", "Cephalosporins"], answer: 1 },
+        { question: "What is the best way to prevent pressure ulcers?", options: ["Medication", "Frequent repositioning", "Massage", "Warm compresses"], answer: 1 }
+    ];
+
+    // ===== VARIABLES =====
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let selectedOption = null;
+    let timer = 30;
+    let timerInterval = null;
+    let examStarted = false;
+
+    // ===== FUNCTIONS =====
+
+    // Show page
+    function showPage(pageId) {
+        document.getElementById('loginPage').classList.add('hidden');
+        document.getElementById('instructionsPage').classList.add('hidden');
+        document.getElementById('examPage').classList.add('hidden');
+        document.getElementById('resultPage').classList.add('hidden');
+        document.getElementById(pageId).classList.remove('hidden');
+    }
+
+    // Login
+    function startExam() {
+        const name = document.getElementById('studentName').value.trim();
+        const id = document.getElementById('studentId').value.trim();
+        if (name === '') { alert('Please enter your full name.'); return; }
+        if (id === '') { alert('Please enter your student ID.'); return; }
+        localStorage.setItem('studentName', name);
+        localStorage.setItem('studentId', id);
+        showPage('instructionsPage');
+    }
+
+    // Begin exam
+    function beginExam() {
+        const name = localStorage.getItem('studentName');
+        if (!name) { alert('Please login first!'); showPage('loginPage'); return; }
+        showPage('examPage');
+        if (!examStarted) {
+            examStarted = true;
+            loadQuestion();
+            startTimer();
+        }
+    }
+
+    // Load question
+    function loadQuestion() {
+        if (currentQuestionIndex >= questions.length) {
+            showResult();
+            return;
+        }
+        const q = questions[currentQuestionIndex];
+        document.getElementById('questionNumber').textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+        document.getElementById('questionText').textContent = q.question;
+        document.getElementById('studentInfo').textContent = `👤 ${localStorage.getItem('studentName')} | ID: ${localStorage.getItem('studentId')}`;
+        
+        const container = document.getElementById('optionsContainer');
+        container.innerHTML = '';
+        const labels = ['A', 'B', 'C', 'D'];
+        q.options.forEach((option, index) => {
+            const btn = document.createElement('button');
+            btn.innerHTML = `<span style="font-weight:bold;">${labels[index]}.</span> ${option}`;
+            btn.onclick = function() { selectOption(index); };
+            container.appendChild(btn);
+        });
+        selectedOption = null;
+        updateProgress();
+    }
+
+    // Select option
+    function selectOption(index) {
+        selectedOption = index;
+        const buttons = document.querySelectorAll('#optionsContainer button');
+        buttons.forEach((btn, i) => {
+            btn.classList.toggle('selected', i === index);
+        });
+    }
+
+    // Next question
+    function nextQuestion() {
+        if (selectedOption === null) {
+            alert('Please select an answer!');
+            return;
+        }
+        if (questions[currentQuestionIndex].answer === selectedOption) {
+            score++;
+        }
+        currentQuestionIndex++;
+        loadQuestion();
+    }
+
+    // Update progress
+    function updateProgress() {
+        const progress = ((currentQuestionIndex) / questions.length) * 100;
+        document.getElementById('progressFill').style.width = progress + '%';
+    }
+
+    // Show result
+    function showResult() {
+        clearInterval(timerInterval);
+        showPage('resultPage');
+        const percentage = (score / questions.length) * 100;
+        document.getElementById('scoreDisplay').textContent = `${score}/${questions.length}`;
+        document.getElementById('percentageDisplay').textContent = `${Math.round(percentage)}%`;
+        let message = '';
+        if (percentage >= 80) message = '🎉 Excellent! You are well prepared!';
+        else if (percentage >= 60) message = '👍 Good job! Keep practicing!';
+        else if (percentage >= 40) message = '📚 Need more study. Review weak areas.';
+        else message = '💪 Keep studying! You will improve.';
+        document.getElementById('resultMessage').textContent = message;
+    }
+
+    // Timer
+    function startTimer() {
+        let timeLeft = timer * 60;
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            document.getElementById('timerDisplay').textContent = `⏱️ ${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert('⏰ Time is up! Submitting your exam.');
+                showResult();
+            }
+        }, 1000);
+    }
+
+    // Restart
+    function restartExam() {
+        localStorage.clear();
+        currentQuestionIndex = 0;
+        score = 0;
+        selectedOption = null;
+        examStarted = false;
+        clearInterval(timerInterval);
+        showPage('loginPage');
+        document.getElementById('studentName').value = '';
+        document.getElementById('studentId').value = '';
+        document.getElementById('timerDisplay').textContent = '⏱️ 30:00';
+        document.getElementById('progressFill').style.width = '0%';
+    }
+
+    // Start on login page
+    showPage('loginPage');
+</script>
+
+</body>
+</html>
