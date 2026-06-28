@@ -1,3 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMCN Exam Prep - 100 Questions</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1628, #1a3a6b, #2d5aa0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            text-align: center;
+            width: 600px;
+            max-width: 95%;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+        .logo { font-size: 60px; margin-bottom: 10px; }
+        h1 { color: #0a1628; font-size: 28px; }
+        .subtitle { color: #2d5aa0; font-size: 14px; font-weight: bold; }
+        hr { margin: 15px 0; border: 1px solid #e0e7ff; }
         h2 { color: #1a3a6b; font-size: 18px; margin-bottom: 15px; }
         input {
             width: 90%;
@@ -25,8 +57,467 @@
         .instructions ol { text-align: left; padding-left: 25px; margin: 20px 0; }
         .instructions li { margin: 12px 0; font-size: 15px; }
         #questionText {
-            font-size: 20px;
+            font-size: 18px;
             color: #0a1628;
             margin: 20px 0;
             padding: 20px;
             background: #f8fafc;
+            border-radius: 10px;
+            text-align: left;
+        }
+        #optionsContainer button {
+            background: #f8fafc;
+            color: #1f2937;
+            border: 2px solid #e2e8f0;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            text-align: left;
+            transition: all 0.3s;
+            width: 100%;
+            display: block;
+            margin: 8px 0;
+        }
+        #optionsContainer button:hover { background: #eff6ff; border-color: #2d5aa0; }
+        #optionsContainer button.selected {
+            background: #2d5aa0;
+            color: white;
+            border-color: #1a3a6b;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2d5aa0, #4f8cf7);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        #scoreDisplay { font-size: 48px; font-weight: bold; color: #2d5aa0; }
+        #timerDisplay { font-size: 18px; color: #dc2626; font-weight: bold; margin: 10px 0; }
+        .hidden { display: none; }
+        .text-left { text-align: left; }
+        .review-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 12px 0;
+            text-align: left;
+            border-left: 4px solid #2d5aa0;
+        }
+        .review-item.correct-review { border-left-color: #22c55e; }
+        .review-item.wrong-review { border-left-color: #ef4444; }
+        .review-question { font-weight: bold; color: #0a1628; font-size: 14px; }
+        .review-answer { margin-top: 5px; font-size: 13px; }
+        .review-answer .correct-text { color: #22c55e; font-weight: bold; }
+        .review-answer .wrong-text { color: #ef4444; font-weight: bold; }
+        .review-answer .your-answer { color: #6b7280; }
+        .topic-tag {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #1a3a6b;
+            font-size: 11px;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-bottom: 5px;
+        }
+        #resultMessage { font-size: 18px; margin: 20px 0; }
+        .exam-badge {
+            display: inline-block;
+            background: #1a3a6b;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        @media (max-width: 480px) {
+            .container { padding: 25px; }
+            h1 { font-size: 22px; }
+            #questionText { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <!-- ===== LOGIN PAGE ===== -->
+    <div id="loginPage">
+        <div class="logo">🏥</div>
+        <h1>NMCN Exam Prep</h1>
+        <p class="subtitle">Nursing & Midwifery Council of Nigeria</p>
+        <p style="font-size:13px; color:#2d5aa0; font-weight:bold;">📚 100 Questions • ⏱️ 45 Minutes</p>
+        <hr>
+        <h2>Login to Start Exam</h2>
+        <input type="text" id="studentName" placeholder="Enter your full name">
+        <input type="text" id="studentId" placeholder="Enter your student ID">
+        <br><br>
+        <button onclick="startExam()">Start Exam</button>
+        <p class="footer">© 2026 NMCN Exam Prep</p>
+    </div>
+
+    <!-- ===== INSTRUCTIONS PAGE ===== -->
+    <div id="instructionsPage" class="hidden">
+        <div class="logo">📋</div>
+        <h1>NMCN Exam Prep</h1>
+        <hr>
+        <h2>Exam Instructions</h2>
+        <div class="instructions">
+            <ol>
+                <li>This exam contains <strong>100 questions</strong>.</li>
+                <li>Each question has <strong>4 options</strong>.</li>
+                <li>Select the <strong>best answer</strong> for each question.</li>
+                <li>You <strong>cannot go back</strong> to previous questions.</li>
+                <li>After completing the exam, you'll see <strong>all questions with correct answers</strong>.</li>
+                <li>Time limit: <strong>45 minutes</strong>.</li>
+                <li><strong>Good luck!</strong></li>
+            </ol>
+        </div>
+        <button onclick="beginExam()">Start Exam</button>
+        <p class="footer">© 2026 NMCN Exam Prep</p>
+    </div>
+
+    <!-- ===== EXAM PAGE ===== -->
+    <div id="examPage" class="hidden">
+        <div class="logo">📝</div>
+        <h1>NMCN Exam Prep</h1>
+        <hr>
+        <div id="studentInfo" style="font-size:14px; color:#6b7280;"></div>
+        <div id="timerDisplay">⏱️ 45:00</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+        </div>
+        <div id="questionNumber" style="font-size:14px; color:#6b7280;">Question 1 of 100</div>
+        <div id="questionText">Loading question...</div>
+        <div id="optionsContainer"></div>
+        <button onclick="nextQuestion()" style="margin-top:20px;">Next Question →</button>
+        <p class="footer">© 2026 NMCN Exam Prep</p>
+    </div>
+
+    <!-- ===== RESULT PAGE ===== -->
+    <div id="resultPage" class="hidden">
+        <div style="font-size:60px; margin-bottom:10px;">🏆</div>
+        <h1>Exam Complete!</h1>
+        <div id="scoreDisplay">0/100</div>
+        <div id="percentageDisplay" style="font-size:24px; font-weight:bold; color:#1a3a6b;">0%</div>
+        <div id="resultMessage" style="font-size:18px; margin:20px 0;"></div>
+        <hr>
+        <h3 style="color:#1a3a6b;">📖 Review Your Answers</h3>
+        <div id="reviewContainer" class="text-left"></div>
+        <hr>
+        <button onclick="restartExam()">🔄 Take New Exam</button>
+        <button onclick="location.reload()" style="background:#9ca3af;">🏠 Home</button>
+        <p class="footer">© 2026 NMCN Exam Prep</p>
+    </div>
+</div>
+
+<script>
+    // ===== 100 NMCN QUESTIONS =====
+    const questions = [
+        // ANATOMY & PHYSIOLOGY (1-15)
+        { topic: "Anatomy", question: "The heart is located in which cavity?", options: ["Thoracic", "Abdominal", "Pelvic", "Cranial"], answer: 0 },
+        { topic: "Anatomy", question: "What is the largest organ in the human body?", options: ["Liver", "Skin", "Heart", "Lungs"], answer: 1 },
+        { topic: "Anatomy", question: "How many bones are in the adult human body?", options: ["206", "208", "210", "212"], answer: 0 },
+        { topic: "Anatomy", question: "What is the function of the cerebellum?", options: ["Balance and coordination", "Vision", "Hearing", "Memory"], answer: 0 },
+        { topic: "Anatomy", question: "Which chamber of the heart pumps blood to the lungs?", options: ["Left ventricle", "Right ventricle", "Left atrium", "Right atrium"], answer: 1 },
+        { topic: "Anatomy", question: "What is the normal pH of human blood?", options: ["7.35-7.45", "7.0-7.2", "7.5-7.7", "6.8-7.0"], answer: 0 },
+        { topic: "Anatomy", question: "Which hormone regulates blood sugar?", options: ["Thyroxine", "Insulin", "Adrenaline", "Cortisol"], answer: 1 },
+        { topic: "Anatomy", question: "What is the function of red blood cells?", options: ["Fight infection", "Carry oxygen", "Clot blood", "Regulate temperature"], answer: 1 },
+        { topic: "Anatomy", question: "The stomach is located in which quadrant?", options: ["RUQ", "LUQ", "RLQ", "LLQ"], answer: 1 },
+        { topic: "Anatomy", question: "What is the longest bone in the body?", options: ["Tibia", "Fibula", "Femur", "Humerus"], answer: 2 },
+        { topic: "Anatomy", question: "Which organ produces bile?", options: ["Gallbladder", "Pancreas", "Liver", "Kidney"], answer: 2 },
+        { topic: "Anatomy", question: "What is the function of platelets?", options: ["Oxygen transport", "Blood clotting", "Infection fighting", "Nutrient transport"], answer: 1 },
+        { topic: "Anatomy", question: "Which part of the brain controls breathing?", options: ["Cerebrum", "Cerebellum", "Medulla oblongata", "Hypothalamus"], answer: 2 },
+        { topic: "Anatomy", question: "How many pairs of cranial nerves are there?", options: ["10", "12", "14", "16"], answer: 1 },
+        { topic: "Anatomy", question: "The appendix is located in which region?", options: ["RUQ", "LUQ", "RLQ", "LLQ"], answer: 2 },
+
+        // PHARMACOLOGY (16-30)
+        { topic: "Pharmacology", question: "Which drug is used to treat hypertension?", options: ["Metformin", "Lisinopril", "Omeprazole", "Ciprofloxacin"], answer: 1 },
+        { topic: "Pharmacology", question: "What is the antidote for opioid overdose?", options: ["Naloxone", "Epinephrine", "Atropine", "Lorazepam"], answer: 0 },
+        { topic: "Pharmacology", question: "Which route is used for insulin administration?", options: ["Oral", "Intravenous", "Subcutaneous", "Intramuscular"], answer: 2 },
+        { topic: "Pharmacology", question: "Which class of antibiotics should be avoided in children?", options: ["Penicillin", "Tetracyclines", "Macrolides", "Cephalosporins"], answer: 1 },
+        { topic: "Pharmacology", question: "What is the mechanism of action of statins?", options: ["Lower cholesterol", "Lower BP", "Lower sugar", "Prevent clotting"], answer: 0 },
+        { topic: "Pharmacology", question: "Which drug is used for anaphylaxis?", options: ["Antihistamine", "Epinephrine", "Corticosteroid", "Antibiotic"], answer: 1 },
+        { topic: "Pharmacology", question: "What is the antidote for warfarin overdose?", options: ["Vitamin K", "Vitamin C", "Iron", "Calcium"], answer: 0 },
+        { topic: "Pharmacology", question: "Which medication is used for asthma?", options: ["Albuterol", "Lisinopril", "Metformin", "Omeprazole"], answer: 0 },
+        { topic: "Pharmacology", question: "What is the first-line treatment for hypertension?", options: ["ACE inhibitors", "Beta blockers", "Diuretics", "Calcium blockers"], answer: 0 },
+        { topic: "Pharmacology", question: "Which drug is used for diabetes?", options: ["Metformin", "Lisinopril", "Warfarin", "Digoxin"], answer: 0 },
+        { topic: "Pharmacology", question: "What is the action of nitroglycerin?", options: ["Vasodilation", "Vasoconstriction", "Increase heart rate", "Decrease heart rate"], answer: 0 },
+        { topic: "Pharmacology", question: "Which medication is used for GERD?", options: ["Omeprazole", "Metformin", "Lisinopril", "Warfarin"], answer: 0 },
+        { topic: "Pharmacology", question: "What is the antidote for benzodiazepine overdose?", options: ["Flumazenil", "Naloxone", "Atropine", "Epinephrine"], answer: 0 },
+        { topic: "Pharmacology", question: "Which drug is used for pain management?", options: ["Morphine", "Metformin", "Warfarin", "Digoxin"], answer: 0 },
+        { topic: "Pharmacology", question: "What is the action of digoxin?", options: ["Increase heart contractility", "Decrease heart rate", "Both", "Neither"], answer: 2 },
+
+        // VITAL SIGNS & ASSESSMENT (31-40)
+        { topic: "Vital Signs", question: "What is the normal adult resting heart rate?", options: ["40-50 bpm", "60-100 bpm", "110-120 bpm", "130-150 bpm"], answer: 1 },
+        { topic: "Vital Signs", question: "What is the normal adult respiratory rate?", options: ["8-12/min", "12-20/min", "22-28/min", "30-36/min"], answer: 1 },
+        { topic: "Vital Signs", question: "What is the normal body temperature in Celsius?", options: ["34.0-35.5°C", "36.5-37.5°C", "38.0-39.5°C", "40.0-41.5°C"], answer: 1 },
+        { topic: "Vital Signs", question: "What is the normal blood pressure for an adult?", options: ["90/60", "120/80", "140/90", "160/100"], answer: 1 },
+        { topic: "Vital Signs", question: "What is the normal oxygen saturation?", options: ["85-90%", "95-100%", "80-85%", "90-95%"], answer: 1 },
+        { topic: "Vital Signs", question: "What is bradycardia?", options: ["Fast heart rate", "Slow heart rate", "Irregular heart rate", "Normal heart rate"], answer: 1 },
+        { topic: "Vital Signs", question: "What is tachycardia?", options: ["Fast heart rate", "Slow heart rate", "Irregular heart rate", "Normal heart rate"], answer: 0 },
+        { topic: "Vital Signs", question: "What is the normal capillary refill time?", options: ["Less than 2 seconds", "3-5 seconds", "5-10 seconds", "More than 10 seconds"], answer: 0 },
+        { topic: "Vital Signs", question: "Which artery is used to measure pulse in adults?", options: ["Femoral", "Radial", "Carotid", "Brachial"], answer: 1 },
+        { topic: "Vital Signs", question: "What is orthostatic hypotension?", options: ["Drop in BP when standing", "Drop in BP when sitting", "Drop in BP when lying", "Drop in BP when exercising"], answer: 0 },
+
+        // PATIENT CARE (41-50)
+        { topic: "Patient Care", question: "What is the first step in CPR?", options: ["Chest compressions", "Check responsiveness", "Rescue breaths", "Apply AED"], answer: 1 },
+        { topic: "Patient Care", question: "Which position is recommended for a patient in shock?", options: ["Supine with legs elevated", "Prone", "Left lateral", "Fowler's"], answer: 0 },
+        { topic: "Patient Care", question: "What is the best way to prevent pressure ulcers?", options: ["Medication", "Frequent repositioning", "Massage", "Warm compresses"], answer: 1 },
+        { topic: "Patient Care", question: "What is the ratio for chest compressions in CPR?", options: ["15:2", "30:2", "15:1", "30:1"], answer: 1 },
+        { topic: "Patient Care", question: "What is the correct position for an unconscious patient?", options: ["Recovery position", "Prone", "Supine", "Fowler's"], answer: 0 },
+        { topic: "Patient Care", question: "What is the most important aspect of patient safety?", options: ["Medication administration", "Fall prevention", "Hand hygiene", "Infection control"], answer: 2 },
+        { topic: "Patient Care", question: "What is the purpose of a patient care plan?", options: ["Record keeping", "Provide individualized care", "Save time", "Follow doctor's orders"], answer: 1 },
+        { topic: "Patient Care", question: "What is the R in RICE treatment stands for?", options: ["Rest", "Rehabilitation", "Recovery", "Reassurance"], answer: 0 },
+        { topic: "Patient Care", question: "What is the purpose of informed consent?", options: ["Protect the patient", "Protect the doctor", "Protect the hospital", "Protect the nurse"], answer: 0 },
+        { topic: "Patient Care", question: "What is a DNR order?", options: ["Do Not Respond", "Do Not Resuscitate", "Do Not Release", "Do Not Refer"], answer: 1 },
+
+        // INFECTION CONTROL (51-60)
+        { topic: "Infection Control", question: "What is the primary purpose of hand hygiene?", options: ["Clean hands", "Prevent cross-infection", "Professionalism", "Remove odors"], answer: 1 },
+        { topic: "Infection Control", question: "What is the correct technique for hand washing?", options: ["15 seconds", "30 seconds", "45 seconds", "60 seconds"], answer: 0 },
+        { topic: "Infection Control", question: "What type of precautions are used for TB?", options: ["Standard", "Airborne", "Droplet", "Contact"], answer: 1 },
+        { topic: "Infection Control", question: "What type of precautions are used for MRSA?", options: ["Standard", "Airborne", "Droplet", "Contact"], answer: 3 },
+        { topic: "Infection Control", question: "What is the purpose of isolation precautions?", options: ["Protect the patient", "Protect healthcare workers", "Prevent transmission", "All of the above"], answer: 3 },
+        { topic: "Infection Control", question: "What is the most common healthcare-associated infection?", options: ["Pneumonia", "UTI", "Surgical site", "Bloodstream"], answer: 1 },
+        { topic: "Infection Control", question: "What is the recommended time for surgical scrub?", options: ["2-4 minutes", "4-6 minutes", "6-8 minutes", "8-10 minutes"], answer: 1 },
+        { topic: "Infection Control", question: "What is the purpose of PPE?", options: ["Protect patients", "Protect healthcare workers", "Both", "Neither"], answer: 2 },
+        { topic: "Infection Control", question: "What is sterile technique?", options: ["Clean technique", "Aseptic technique", "Both", "Neither"], answer: 1 },
+        { topic: "Infection Control", question: "What is the chain of infection?", options: ["6 steps", "5 steps", "4 steps", "3 steps"], answer: 0 },
+
+        // MATERNAL HEALTH (61-70)
+        { topic: "Maternal Health", question: "What is the leading cause of maternal mortality in Nigeria?", options: ["Eclampsia", "Postpartum hemorrhage", "Sepsis", "Obstructed labor"], answer: 1 },
+        { topic: "Maternal Health", question: "What is the recommended duration of exclusive breastfeeding?", options: ["3 months", "6 months", "1 year", "2 years"], answer: 1 },
+        { topic: "Maternal Health", question: "What is a sign of pre-eclampsia?", options: ["Hypotension", "Proteinuria", "Bradycardia", "Anemia"], answer: 1 },
+        { topic: "Maternal Health", question: "What is the normal duration of pregnancy?", options: ["36 weeks", "38 weeks", "40 weeks", "42 weeks"], answer: 2 },
+        { topic: "Maternal Health", question: "What is the first stage of labor?", options: ["Active labor", "Latent phase", "Transition", "Pushing"], answer: 1 },
+        { topic: "Maternal Health", question: "What is the normal fetal heart rate?", options: ["80-100 bpm", "100-120 bpm", "120-160 bpm", "160-180 bpm"], answer: 2 },
+        { topic: "Maternal Health", question: "What is the purpose of antenatal care?", options: ["Monitor mother", "Monitor baby", "Education", "All of the above"], answer: 3 },
+        { topic: "Maternal Health", question: "What is a sign of active labor?", options: ["Irregular contractions", "Regular strong contractions", "Braxton Hicks", "No contractions"], answer: 1 },
+        { topic: "Maternal Health", question: "What is the recommended weight gain during pregnancy?", options: ["5-10 kg", "11-16 kg", "17-20 kg", "21-25 kg"], answer: 1 },
+        { topic: "Maternal Health", question: "What is postpartum depression?", options: ["Baby blues", "Severe depression", "Mood swings", "All of the above"], answer: 1 },
+
+        // MEDICAL-SURGICAL (71-80)
+        { topic: "Medical-Surgical", question: "What is the medical term for high blood pressure?", options: ["Hypotension", "Hypertension", "Tachycardia", "Bradycardia"], answer: 1 },
+        { topic: "Medical-Surgical", question: "What is the sign of heart failure?", options: ["Edema", "Pain", "Fever", "Nausea"], answer: 0 },
+        { topic: "Medical-Surgical", question: "What is the treatment for anaphylaxis?", options: ["Antihistamine", "Epinephrine", "Corticosteroid", "Antibiotic"], answer: 1 },
+        { topic: "Medical-Surgical", question: "What is the sign of dehydration?", options: ["Dry mucous membranes", "Weight gain", "Edema", "Increased urine"], answer: 0 },
+        { topic: "Medical-Surgical", question: "What is the treatment for hypothermia?", options: ["Warm fluids", "Cold fluids", "Room temperature", "Ice packs"], answer: 0 },
+        { topic: "Medical-Surgical", question: "What is the sign of hyperglycemia?", options: ["Thirst", "Weight gain", "Bradycardia", "Hypotension"], answer: 0 },
+        { topic: "Medical-Surgical", question: "What is the treatment for asthma?", options: ["Albuterol", "Metformin", "Lisinopril", "Warfarin"], answer: 0 },
+        { topic: "Medical-Surgical", question: "What is the sign of appendicitis?", options: ["RLQ pain", "LUQ pain", "RUQ pain", "LLQ pain"], answer: 0 },
+        { topic: "Medical-Surgical", question: "What is the treatment for kidney stones?", options: ["Increased fluids", "Decreased fluids", "Antibiotics", "Surgery"], answer: 0 },
+        { topic: "Medical-Surgical", question: "What is the sign of stroke?", options: ["Facial droop", "Leg swelling", "Back pain", "Chest pain"], answer: 0 },
+
+        // PEDIATRICS (81-85)
+        { topic: "Pediatrics", question: "What is the normal heart rate for a newborn?", options: ["60-80 bpm", "80-100 bpm", "100-160 bpm", "160-200 bpm"], answer: 2 },
+        { topic: "Pediatrics", question: "What is the first immunization given to newborns?", options: ["Polio", "BCG", "Measles", "Tetanus"], answer: 1 },
+        { topic: "Pediatrics", question: "What is the treatment for dehydration in children?", options: ["IV fluids", "ORAL rehydration", "Antibiotics", "Blood transfusion"], answer: 1 },
+        { topic: "Pediatrics", question: "What is the normal respiratory rate for a child?", options: ["12-18/min", "18-25/min", "25-35/min", "35-45/min"], answer: 2 },
+        { topic: "Pediatrics", question: "What is the most common cause of diarrhea in children?", options: ["Bacteria", "Virus", "Parasite", "Food"], answer: 1 },
+
+        // ETHICS & LEGAL (86-90)
+        { topic: "Ethics", question: "What is a key principle of patient-centered care?", options: ["Follow doctor's orders", "Respect patient autonomy", "Minimize interaction", "Standardize treatment"], answer: 1 },
+        { topic: "Ethics", question: "What is the purpose of patient confidentiality?", options: ["Protect patient rights", "Protect doctors", "Protect hospitals", "Save time"], answer: 0 },
+        { topic: "Ethics", question: "What is informed consent?", options: ["Patient agrees", "Patient understands", "Both", "Neither"], answer: 2 },
+        { topic: "Ethics", question: "What is the Code of Conduct for nurses?", options: ["International code", "National code", "Hospital code", "All of the above"], answer: 3 },
+        { topic: "Ethics", question: "What is the principle of non-maleficence?", options: ["Do good", "Do no harm", "Be fair", "Respect autonomy"], answer: 1 },
+
+        // GERIATRICS (91-95)
+        { topic: "Geriatrics", question: "Which is a risk factor for falls in the elderly?", options: ["Strong vision", "Regular exercise", "Polypharmacy", "Good nutrition"], answer: 2 },
+        { topic: "Geriatrics", question: "What is the most common skin condition in the elderly?", options: ["Dry skin", "Wrinkles", "Age spots", "All of the above"], answer: 3 },
+        { topic: "Geriatrics", question: "What is the sign of osteoporosis?", options: ["Bone pain", "Fracture", "Height loss", "All of the above"], answer: 3 },
+        { topic: "Geriatrics", question: "What is the treatment for dementia?", options: ["Cure", "Management", "Surgery", "No treatment"], answer: 1 },
+        { topic: "Geriatrics", question: "What is the importance of good nutrition in the elderly?", options: ["Prevent disease", "Maintain health", "Improve quality of life", "All of the above"], answer: 3 },
+
+        // NUTRITION & DIET (96-100)
+        { topic: "Nutrition", question: "Which vitamin is essential for blood clotting?", options: ["Vitamin A", "Vitamin B12", "Vitamin C", "Vitamin K"], answer: 3 },
+        { topic: "Nutrition", question: "Which electrolyte is essential for muscle contraction?", options: ["Sodium", "Potassium", "Calcium", "Magnesium"], answer: 2 },
+        { topic: "Nutrition", question: "What is the recommended daily water intake?", options: ["2 L", "3 L", "4 L", "5 L"], answer: 0 },
+        { topic: "Nutrition", question: "What is the function of vitamin C?", options: ["Immunity", "Blood clotting", "Vision", "Bone health"], answer: 0 },
+        { topic: "Nutrition", question: "What is the best source of calcium?", options: ["Milk", "Meat", "Bread", "Rice"], answer: 0 }
+    ];
+
+    // ===== VARIABLES =====
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let selectedOption = null;
+    let timer = 45;
+    let timerInterval = null;
+    let examStarted = false;
+    let userAnswers = [];
+
+    // ===== FUNCTIONS =====
+
+    function showPage(pageId) {
+        document.getElementById('loginPage').classList.add('hidden');
+        document.getElementById('instructionsPage').classList.add('hidden');
+        document.getElementById('examPage').classList.add('hidden');
+        document.getElementById('resultPage').classList.add('hidden');
+        document.getElementById(pageId).classList.remove('hidden');
+    }
+
+    function startExam() {
+        const name = document.getElementById('studentName').value.trim();
+        const id = document.getElementById('studentId').value.trim();
+        if (name === '') { alert('Please enter your full name.'); return; }
+        if (id === '') { alert('Please enter your student ID.'); return; }
+        localStorage.setItem('studentName', name);
+        localStorage.setItem('studentId', id);
+        showPage('instructionsPage');
+    }
+
+    function beginExam() {
+        const name = localStorage.getItem('studentName');
+        if (!name) { alert('Please login first!'); showPage('loginPage'); return; }
+        showPage('examPage');
+        if (!examStarted) {
+            examStarted = true;
+            userAnswers = [];
+            loadQuestion();
+            startTimer();
+        }
+    }
+
+    function loadQuestion() {
+        if (currentQuestionIndex >= questions.length) {
+            showResult();
+            return;
+        }
+        const q = questions[currentQuestionIndex];
+        document.getElementById('questionNumber').textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+        document.getElementById('questionText').innerHTML = `<span class="topic-tag">${q.topic}</span><br><br>${q.question}`;
+        document.getElementById('studentInfo').textContent = `👤 ${localStorage.getItem('studentName')} | ID: ${localStorage.getItem('studentId')}`;
+        
+        const container = document.getElementById('optionsContainer');
+        container.innerHTML = '';
+        const labels = ['A', 'B', 'C', 'D'];
+        q.options.forEach((option, index) => {
+            const btn = document.createElement('button');
+            btn.innerHTML = `<span style="font-weight:bold;">${labels[index]}.</span> ${option}`;
+            btn.onclick = function() { selectOption(index); };
+            container.appendChild(btn);
+        });
+        selectedOption = null;
+        updateProgress();
+    }
+
+    function selectOption(index) {
+        selectedOption = index;
+        const buttons = document.querySelectorAll('#optionsContainer button');
+        buttons.forEach((btn, i) => {
+            btn.classList.toggle('selected', i === index);
+        });
+    }
+
+    function nextQuestion() {
+        if (selectedOption === null) {
+            alert('Please select an answer!');
+            return;
+        }
+        userAnswers.push(selectedOption);
+        
+        if (questions[currentQuestionIndex].answer === selectedOption) {
+            score++;
+        }
+        currentQuestionIndex++;
+        loadQuestion();
+    }
+
+    function updateProgress() {
+        const progress = ((currentQuestionIndex) / questions.length) * 100;
+        document.getElementById('progressFill').style.width = progress + '%';
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        showPage('resultPage');
+        const percentage = (score / questions.length) * 100;
+        document.getElementById('scoreDisplay').textContent = `${score}/${questions.length}`;
+        document.getElementById('percentageDisplay').textContent = `${Math.round(percentage)}%`;
+        
+        let message = '';
+        if (percentage >= 80) message = '🎉 Excellent! You are well prepared for NMCN!';
+        else if (percentage >= 60) message = '👍 Good job! Keep practicing!';
+        else if (percentage >= 40) message = '📚 Need more study. Review weak areas.';
+        else message = '💪 Keep studying! You will improve.';
+        document.getElementById('resultMessage').textContent = message;
+        
+        displayReview();
+    }
+
+    function displayReview() {
+        const container = document.getElementById('reviewContainer');
+        container.innerHTML = '';
+        
+        const labels = ['A', 'B', 'C', 'D'];
+        
+        questions.forEach((q, index) => {
+            const userAnswer = userAnswers[index] !== undefined ? userAnswers[index] : -1;
+            const isCorrect = userAnswer === q.answer;
+            
+            const div = document.createElement('div');
+            div.className = `review-item ${isCorrect ? 'correct-review' : 'wrong-review'}`;
+            
+            let answerText = '';
+            if (userAnswer === -1) {
+                answerText = `<span class="wrong-text">Not answered</span>`;
+            } else {
+                answerText = `
+                    <span class="your-answer">Your answer: <strong>${labels[userAnswer]}</strong></span>
+                    ${!isCorrect ? ` | <span class="correct-text">Correct: <strong>${labels[q.answer]}</strong></span>` : ''}
+                `;
+            }
+            
+            div.innerHTML = `
+                <div class="review-question">Q${index + 1}: ${q.question}</div>
+                <div class="review-answer">
+                    ${answerText}
+                    ${isCorrect ? ' ✅' : ' ❌'}
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function startTimer() {
+        let timeLeft = timer * 60;
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            document.getElementById('timerDisplay').textContent = `⏱️ ${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert('⏰ Time is up! Submitting your exam.');
+                showResult();
+            }
+        }, 1000);
+    }
+
+    function restartExam() {
+        localStorage.clear();
+        currentQuestionIndex = 0;
+        score = 0;
+        selectedOption = null;
+        examStarted = false;
+        userAnswers = [];
+        clearInterval(timerInterval);
+        showPage('loginPage');
+        document.getElementById('studentName').value = '';
+        document.getElementById('studentId').value = '';
+        document.getElementById('timerDisplay').textContent = '⏱️ 45:00';
+        document.getElementById('progressFill').style.width = '0%';
+    }
+
+    // Start on login page
+    showPage('loginPage');
+</script>
+
+</body>
+</html>
