@@ -1,322 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMCN Exam Prep - 50 Questions</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a1628, #1a3a6b, #2d5aa0);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            text-align: center;
-            width: 600px;
-            max-width: 95%;
-            max-height: 95vh;
-            overflow-y: auto;
-        }
-        .logo { font-size: 60px; margin-bottom: 10px; }
-        h1 { color: #0a1628; font-size: 28px; }
-        .subtitle { color: #2d5aa0; font-size: 14px; font-weight: bold; }
-        hr { margin: 15px 0; border: 1px solid #e0e7ff; }
-        h2 { color: #1a3a6b; font-size: 18px; margin-bottom: 15px; }
-        input {
-            width: 90%;
-            padding: 14px;
-            margin: 8px 0;
-            border: 2px solid #d1d5db;
-            border-radius: 10px;
-            font-size: 15px;
-        }
-        input:focus { border-color: #2d5aa0; outline: none; }
-        button {
-            background: linear-gradient(135deg, #1a3a6b, #2d5aa0);
-            color: white;
-            border: none;
-            padding: 14px 40px;
-            border-radius: 10px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin: 10px 5px;
-        }
-        button:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(45,90,160,0.4); }
-        .footer { color: #9ca3af; font-size: 12px; margin-top: 20px; }
-        .instructions ol { text-align: left; padding-left: 25px; margin: 20px 0; }
-        .instructions li { margin: 12px 0; font-size: 15px; }
-        #questionText {
-            font-size: 18px;
-            color: #0a1628;
-            margin: 20px 0;
-            padding: 20px;
-            background: #f8fafc;
-            border-radius: 10px;
-            text-align: left;
-        }
-        #optionsContainer button {
-            background: #f8fafc;
-            color: #1f2937;
-            border: 2px solid #e2e8f0;
-            padding: 14px 20px;
-            border-radius: 10px;
-            font-size: 15px;
-            text-align: left;
-            transition: all 0.3s;
-            width: 100%;
-            display: block;
-            margin: 8px 0;
-        }
-        #optionsContainer button:hover { background: #eff6ff; border-color: #2d5aa0; }
-        #optionsContainer button.selected {
-            background: #2d5aa0;
-            color: white;
-            border-color: #1a3a6b;
-        }
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #e2e8f0;
-            border-radius: 5px;
-            margin: 10px 0;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #2d5aa0, #4f8cf7);
-            border-radius: 5px;
-            transition: width 0.5s ease;
-        }
-        #scoreDisplay { font-size: 48px; font-weight: bold; color: #2d5aa0; }
-        #timerDisplay { font-size: 18px; color: #dc2626; font-weight: bold; margin: 10px 0; }
-        .hidden { display: none; }
-        .text-left { text-align: left; }
-        .review-item {
-            background: #f8fafc;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 12px 0;
-            text-align: left;
-            border-left: 4px solid #2d5aa0;
-        }
-        .review-item.correct-review { border-left-color: #22c55e; }
-        .review-item.wrong-review { border-left-color: #ef4444; }
-        .review-question { font-weight: bold; color: #0a1628; font-size: 14px; }
-        .review-answer { margin-top: 5px; font-size: 13px; }
-        .review-answer .correct-text { color: #22c55e; font-weight: bold; }
-        .review-answer .wrong-text { color: #ef4444; font-weight: bold; }
-        .review-answer .your-answer { color: #6b7280; }
-        .review-explanation {
-            margin-top: 8px;
-            padding: 10px;
-            background: #f0f7ff;
-            border-radius: 8px;
-            font-size: 13px;
-            color: #1a3a6b;
-            border-left: 3px solid #2d5aa0;
-        }
-        .topic-tag {
-            display: inline-block;
-            background: #e0e7ff;
-            color: #1a3a6b;
-            font-size: 11px;
-            padding: 2px 10px;
-            border-radius: 20px;
-            margin-bottom: 5px;
-        }
-        #resultMessage { font-size: 18px; margin: 20px 0; }
-        .filter-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 15px 0;
-        }
-        .filter-buttons button {
-            padding: 8px 20px;
-            font-size: 13px;
-            margin: 2px;
-        }
-        .filter-buttons button.active {
-            background: #0a1628;
-        }
-        @media (max-width: 480px) {
-            .container { padding: 25px; }
-            h1 { font-size: 22px; }
-            #questionText { font-size: 16px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NMCN Exam - 100 Questions</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0a1628, #1a3a6b, #2d5aa0);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.container {
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    text-align: center;
+    width: 600px;
+    max-width: 95%;
+    max-height: 95vh;
+    overflow-y: auto;
+}
+.logo { font-size: 50px; margin-bottom: 10px; }
+h1 { color: #0a1628; font-size: 26px; }
+.subtitle { color: #2d5aa0; font-size: 13px; font-weight: bold; }
+hr { margin: 15px 0; border: 1px solid #e0e7ff; }
+h2 { color: #1a3a6b; font-size: 17px; margin-bottom: 15px; }
+input {
+    width: 90%;
+    padding: 12px;
+    margin: 6px 0;
+    border: 2px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 15px;
+}
+input:focus { border-color: #2d5aa0; outline: none; }
+button {
+    background: linear-gradient(135deg, #1a3a6b, #2d5aa0);
+    color: white;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin: 8px 5px;
+}
+button:hover { transform: scale(1.05); }
+.footer { color: #9ca3af; font-size: 11px; margin-top: 18px; }
+.instructions ol { text-align: left; padding-left: 20px; margin: 15px 0; }
+.instructions li { margin: 10px 0; font-size: 14px; }
+#questionText {
+    font-size: 17px;
+    color: #0a1628;
+    margin: 15px 0;
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 10px;
+    text-align: left;
+}
+#optionsContainer button {
+    background: #f8fafc;
+    color: #1f2937;
+    border: 2px solid #e2e8f0;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+    display: block;
+    margin: 6px 0;
+    cursor: pointer;
+}
+#optionsContainer button:hover { background: #eff6ff; border-color: #2d5aa0; }
+#optionsContainer button.selected {
+    background: #2d5aa0;
+    color: white;
+    border-color: #1a3a6b;
+}
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 5px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2d5aa0, #4f8cf7);
+    border-radius: 5px;
+    transition: width 0.5s ease;
+}
+#scoreDisplay { font-size: 48px; font-weight: bold; color: #2d5aa0; }
+#timerDisplay { font-size: 18px; color: #dc2626; font-weight: bold; margin: 8px 0; }
+.hidden { display: none; }
+.text-left { text-align: left; }
+.review-item {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 10px 0;
+    text-align: left;
+    border-left: 4px solid #2d5aa0;
+}
+.review-item.correct-review { border-left-color: #22c55e; }
+.review-item.wrong-review { border-left-color: #ef4444; }
+.review-question { font-weight: bold; color: #0a1628; font-size: 14px; }
+.review-answer { margin-top: 4px; font-size: 13px; }
+.review-explanation {
+    margin-top: 6px;
+    padding: 8px;
+    background: #f0f7ff;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #1a3a6b;
+    border-left: 3px solid #2d5aa0;
+}
+.topic-tag {
+    background: #e0e7ff;
+    color: #1a3a6b;
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 12px 0;
+}
+.filter-buttons button { padding: 6px 18px; font-size: 13px; margin: 2px; }
+.filter-buttons button.active { background: #0a1628; }
+@media (max-width: 480px) {
+    .container { padding: 20px; }
+    h1 { font-size: 20px; }
+    #questionText { font-size: 15px; }
+}
+</style>
 </head>
 <body>
 
 <div class="container" id="app">
-    <!-- LOGIN PAGE -->
-    <div id="loginPage">
-        <div class="logo">🏥</div>
-        <h1>NMCN Exam Prep</h1>
-        <p class="subtitle">Nursing & Midwifery Council of Nigeria</p>
-        <p style="font-size:13px; color:#2d5aa0; font-weight:bold;">📚 50 Questions • ⏱️ 45 Minutes</p>
-        <hr>
-        <h2>Login to Start Exam</h2>
-        <input type="text" id="studentName" placeholder="Enter your full name">
-        <input type="text" id="studentId" placeholder="Enter your student ID">
-        <br><br>
-        <button onclick="startExam()">Start Exam</button>
-        <p class="footer">© 2026 NMCN Exam Prep</p>
-    </div>
 
-    <!-- INSTRUCTIONS PAGE -->
-    <div id="instructionsPage" class="hidden">
-        <div class="logo">📋</div>
-        <h1>NMCN Exam Prep</h1>
-        <hr>
-        <h2>Exam Instructions</h2>
-        <div class="instructions">
-            <ol>
-                <li>This exam contains <strong>50 questions</strong>.</li>
-                <li>Each question has <strong>4 options</strong>.</li>
-                <li>Select the <strong>best answer</strong> for each question.</li>
-                <li>You <strong>cannot go back</strong> to previous questions.</li>
-                <li>After completing, you'll see <strong>all questions with explanations</strong>.</li>
-                <li>Time limit: <strong>45 minutes</strong>.</li>
-                <li><strong>Good luck!</strong></li>
-            </ol>
-        </div>
-        <button onclick="beginExam()">Start Exam</button>
-        <p class="footer">© 2026 NMCN Exam Prep</p>
-    </div>
+<!-- ===== LOGIN ===== -->
+<div id="loginPage">
+    <div class="logo">🏥</div>
+    <h1>NMCN Exam Prep</h1>
+    <p class="subtitle">Nursing & Midwifery Council of Nigeria</p>
+    <p style="font-size:13px; color:#2d5aa0; font-weight:bold;">📚 100 Questions • ⏱️ 60 Minutes</p>
+    <hr>
+    <h2>Login to Start Exam</h2>
+    <input type="text" id="studentName" placeholder="Enter your full name">
+    <input type="text" id="studentId" placeholder="Enter your student ID">
+    <br><br>
+    <button onclick="startExam()">Start Exam</button>
+    <p class="footer">© 2026 NMCN Exam Prep</p>
+</div>
 
-    <!-- EXAM PAGE -->
-    <div id="examPage" class="hidden">
-        <div class="logo">📝</div>
-        <h1>NMCN Exam Prep</h1>
-        <hr>
-        <div id="studentInfo" style="font-size:14px; color:#6b7280;"></div>
-        <div id="timerDisplay">⏱️ 45:00</div>
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill" style="width:0%;"></div>
-        </div>
-        <div id="questionNumber" style="font-size:14px; color:#6b7280;">Question 1 of 50</div>
-        <div id="questionText">Loading question...</div>
-        <div id="optionsContainer"></div>
-        <button onclick="nextQuestion()" style="margin-top:20px;">Next Question →</button>
-        <p class="footer">© 2026 NMCN Exam Prep</p>
+<!-- ===== INSTRUCTIONS ===== -->
+<div id="instructionsPage" class="hidden">
+    <div class="logo">📋</div>
+    <h1>NMCN Exam Prep</h1>
+    <hr>
+    <h2>Exam Instructions</h2>
+    <div class="instructions">
+        <ol>
+            <li>This exam contains <strong>100 questions</strong>.</li>
+            <li>Each question has <strong>4 options</strong>.</li>
+            <li>Select the <strong>best answer</strong> for each question.</li>
+            <li>You <strong>cannot go back</strong> to previous questions.</li>
+            <li>After completing, you'll see <strong>all questions with explanations</strong>.</li>
+            <li>Time limit: <strong>60 minutes</strong>.</li>
+            <li><strong>Good luck!</strong></li>
+        </ol>
     </div>
+    <button onclick="beginExam()">Start Exam</button>
+    <p class="footer">© 2026 NMCN Exam Prep</p>
+</div>
 
-    <!-- RESULT PAGE -->
-    <div id="resultPage" class="hidden">
-        <div style="font-size:60px; margin-bottom:10px;">🏆</div>
-        <h1>Exam Complete!</h1>
-        <div id="scoreDisplay">0/50</div>
-        <div id="percentageDisplay" style="font-size:24px; font-weight:bold; color:#1a3a6b;">0%</div>
-        <div id="resultMessage" style="font-size:18px; margin:20px 0;"></div>
-        <hr>
-        <h3 style="color:#1a3a6b;">📖 Review Your Answers with Explanations</h3>
-        <div class="filter-buttons">
-            <button onclick="filterReview('all')" class="active" id="filterAll">All</button>
-            <button onclick="filterReview('correct')" id="filterCorrect">✅ Correct</button>
-            <button onclick="filterReview('wrong')" id="filterWrong">❌ Wrong</button>
-        </div>
-        <div id="reviewContainer" class="text-left"></div>
-        <hr>
-        <button onclick="restartExam()">🔄 Take New Exam</button>
-        <button onclick="location.reload()" style="background:#9ca3af;">🏠 Home</button>
-        <p class="footer">© 2026 NMCN Exam Prep</p>
+<!-- ===== EXAM ===== -->
+<div id="examPage" class="hidden">
+    <div class="logo">📝</div>
+    <h1>NMCN Exam Prep</h1>
+    <hr>
+    <div id="studentInfo" style="font-size:14px; color:#6b7280;"></div>
+    <div id="timerDisplay">⏱️ 60:00</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
+    <div id="questionNumber" style="font-size:14px; color:#6b7280;">Question 1 of 100</div>
+    <div id="questionText">Loading question...</div>
+    <div id="optionsContainer"></div>
+    <button onclick="nextQuestion()" style="margin-top:18px;">Next Question →</button>
+    <p class="footer">© 2026 NMCN Exam Prep</p>
+</div>
+
+<!-- ===== RESULTS ===== -->
+<div id="resultPage" class="hidden">
+    <div style="font-size:60px; margin-bottom:10px;">🏆</div>
+    <h1>Exam Complete!</h1>
+    <div id="scoreDisplay">0/100</div>
+    <div id="percentageDisplay" style="font-size:24px; font-weight:bold; color:#1a3a6b;">0%</div>
+    <div id="resultMessage" style="font-size:17px; margin:15px 0;"></div>
+    <hr>
+    <h3 style="color:#1a3a6b;">📖 Review Your Answers</h3>
+    <div class="filter-buttons">
+        <button onclick="filterReview('all')" class="active" id="filterAll">All</button>
+        <button onclick="filterReview('correct')" id="filterCorrect">✅ Correct</button>
+        <button onclick="filterReview('wrong')" id="filterWrong">❌ Wrong</button>
     </div>
+    <div id="reviewContainer" class="text-left"></div>
+    <hr>
+    <button onclick="restartExam()">🔄 Take New Exam</button>
+    <button onclick="location.reload()" style="background:#9ca3af;">🏠 Home</button>
+    <p class="footer">© 2026 NMCN Exam Prep</p>
+</div>
 </div>
 
 <script>
 // ============================================================
-// 50 ANATOMY & PHYSIOLOGY QUESTIONS
+// 100 QUESTIONS - ANATOMY & PHYSIOLOGY
 // ============================================================
-const questions = [
-    // SKIN & INTEGUMENTARY (1-6)
-    { topic: "Skin", question: "Which layer of the skin provides protection against injury, pathogens, and water loss?", options: ["Dermis", "Subcutaneous layer", "Epidermis", "Hypodermis"], answer: 2, explanation: "The epidermis is the outermost layer that provides protection." },
-    { topic: "Skin", question: "What is the function of melanocytes in the skin?", options: ["Produce keratin", "Produce melanin for skin color and UV protection", "Regulate body temperature", "Detect touch and pressure"], answer: 1, explanation: "Melanocytes produce melanin, which gives skin its color and protects against UV radiation." },
-    { topic: "Skin", question: "Which layer of the skin contains blood vessels, nerves, glands, and hair follicles?", options: ["Epidermis", "Dermis", "Subcutaneous layer", "Stratum corneum"], answer: 1, explanation: "The dermis is the middle layer containing blood vessels, nerves, glands, and hair follicles." },
-    { topic: "Skin", question: "What is the function of sebaceous (oil) glands?", options: ["Regulate body temperature", "Secrete sebum to lubricate and waterproof the skin", "Produce sweat", "Detect pain sensations"], answer: 1, explanation: "Sebaceous glands secrete sebum, which lubricates and waterproofs the skin and hair." },
-    { topic: "Skin", question: "The hypodermis (subcutaneous layer) functions to:", options: ["Produce melanin", "Provide strength and elasticity", "Insulate the body, store fat, and cushion structures", "Detect sensory stimuli"], answer: 2, explanation: "The subcutaneous layer insulates the body, stores fat, and cushions underlying structures." },
-    { topic: "Skin", question: "Which cells produce keratin, which strengthens and waterproofs the skin?", options: ["Melanocytes", "Keratinocytes", "Langerhans cells", "Merkel cells"], answer: 1, explanation: "Keratinocytes produce keratin, a protein that strengthens and waterproofs the skin." },
-
-    // NAILS (7-11)
-    { topic: "Nails", question: "What is the growth center of the nail that produces new nail cells?", options: ["Nail bed", "Nail plate", "Nail matrix", "Lunula"], answer: 2, explanation: "The nail matrix is the growth center that produces new nail cells." },
-    { topic: "Nails", question: "The visible white crescent at the base of the nail is called the:", options: ["Cuticle", "Hyponychium", "Lunula", "Nail fold"], answer: 2, explanation: "The lunula is the visible white crescent at the base of the nail." },
-    { topic: "Nails", question: "Which structure seals the space between the nail plate and skin, preventing infection?", options: ["Hyponychium", "Nail folds", "Cuticle (Eponychium)", "Free edge"], answer: 2, explanation: "The cuticle seals the space between the nail plate and skin, preventing infection." },
-    { topic: "Nails", question: "The hard keratin structure that protects the fingertip and aids in fine manipulation is the:", options: ["Nail bed", "Nail plate", "Nail matrix", "Nail folds"], answer: 1, explanation: "The nail plate is the hard keratin structure that protects the fingertip." },
-    { topic: "Nails", question: "The hyponychium functions to:", options: ["Produce new nail cells", "Seal the space between nail and skin", "Protect the free edge and prevent pathogen entry", "Surround and protect nail edges"], answer: 2, explanation: "The hyponychium is a protective barrier under the free edge of the nail." },
-
-    // SKELETAL (12-20)
-    { topic: "Skeletal", question: "How many bones make up the adult human skeleton?", options: ["180", "206", "212", "220"], answer: 1, explanation: "The adult human skeleton consists of 206 bones." },
-    { topic: "Skeletal", question: "The axial skeleton consists of how many bones?", options: ["80", "126", "206", "56"], answer: 0, explanation: "The axial skeleton forms the central axis and contains 80 bones." },
-    { topic: "Skeletal", question: "Which of the following is NOT a cranial bone?", options: ["Frontal", "Parietal", "Mandible", "Occipital"], answer: 2, explanation: "The mandible is a facial bone, not a cranial bone." },
-    { topic: "Skeletal", question: "How many pairs of ribs are there in the human body?", options: ["10", "12", "14", "16"], answer: 1, explanation: "There are 12 pairs of ribs: 7 true, 3 false, and 2 floating." },
-    { topic: "Skeletal", question: "The appendicular skeleton consists of how many bones?", options: ["80", "126", "206", "100"], answer: 1, explanation: "The appendicular skeleton consists of 126 bones." },
-    { topic: "Skeletal", question: "Which bone is NOT part of the axial skeleton?", options: ["Sternum", "Vertebral column", "Skull", "Femur"], answer: 3, explanation: "The femur is part of the appendicular skeleton." },
-    { topic: "Skeletal", question: "The hyoid bone is located in the:", options: ["Skull", "Neck", "Chest", "Pelvis"], answer: 1, explanation: "The hyoid bone is located in the neck and supports the tongue." },
-    { topic: "Skeletal", question: "How many vertebrae make up the vertebral column?", options: ["26", "30", "33", "24"], answer: 0, explanation: "The vertebral column has 26 bones." },
-    { topic: "Skeletal", question: "The auditory ossicles are located in the:", options: ["Inner ear", "Middle ear", "Outer ear", "Skull"], answer: 1, explanation: "The auditory ossicles are located in the middle ear." },
-
-    // NERVOUS SYSTEM (21-30)
-    { topic: "Nervous", question: "Which part of the brain is responsible for thinking, memory, and voluntary movement?", options: ["Cerebellum", "Cerebrum", "Medulla oblongata", "Hypothalamus"], answer: 1, explanation: "The cerebrum is responsible for higher functions." },
-    { topic: "Nervous", question: "The thalamus functions as a:", options: ["Relay station for sensory impulses", "Control center for temperature", "Balance center", "Breathing center"], answer: 0, explanation: "The thalamus acts as a relay station for sensory impulses." },
-    { topic: "Nervous", question: "Which part of the brain controls temperature, hunger, thirst, and hormones?", options: ["Cerebrum", "Thalamus", "Hypothalamus", "Pons"], answer: 2, explanation: "The hypothalamus controls temperature, hunger, thirst, and hormones." },
-    { topic: "Nervous", question: "The cerebellum is responsible for:", options: ["Visual reflexes", "Balance, posture, and coordination", "Heartbeat and breathing", "Memory"], answer: 1, explanation: "The cerebellum controls balance, posture, and coordination." },
-    { topic: "Nervous", question: "Which lobe of the brain is responsible for vision?", options: ["Frontal", "Temporal", "Occipital", "Parietal"], answer: 2, explanation: "The occipital lobe interprets visual information." },
-    { topic: "Nervous", question: "The medulla oblongata controls:", options: ["Voluntary movement", "Thinking", "Heartbeat, breathing, and blood pressure", "Balance"], answer: 2, explanation: "The medulla oblongata controls vital functions." },
-    { topic: "Nervous", question: "Broca's area, responsible for speech production, is located in which lobe?", options: ["Temporal", "Parietal", "Frontal", "Occipital"], answer: 2, explanation: "Broca's area is located in the frontal lobe." },
-    { topic: "Nervous", question: "Wernicke's area, responsible for understanding language, is located in which lobe?", options: ["Frontal", "Temporal", "Parietal", "Occipital"], answer: 1, explanation: "Wernicke's area is located in the temporal lobe." },
-    { topic: "Nervous", question: "How many segments make up the spinal cord?", options: ["30", "31", "32", "33"], answer: 1, explanation: "The spinal cord has 31 segments." },
-    { topic: "Nervous", question: "The dorsal root of the spinal nerve functions to:", options: ["Send motor impulses", "Receive sensory input", "Control autonomic functions", "Coordinate reflexes"], answer: 1, explanation: "The dorsal root carries sensory input to the spinal cord." },
-
-    // ENDOCRINE (31-38)
-    { topic: "Endocrine", question: "Which gland is known as the 'master gland'?", options: ["Thyroid", "Adrenal", "Pituitary", "Pineal"], answer: 2, explanation: "The pituitary gland is called the 'master gland'." },
-    { topic: "Endocrine", question: "Which hormone does the thyroid produce that regulates metabolism?", options: ["Insulin", "Thyroxine (T4)", "Adrenaline", "Cortisol"], answer: 1, explanation: "Thyroxine (T4) regulates metabolism." },
-    { topic: "Endocrine", question: "Which hormone increases blood calcium levels?", options: ["Calcitonin", "Parathyroid hormone (PTH)", "Insulin", "Aldosterone"], answer: 1, explanation: "Parathyroid hormone (PTH) increases blood calcium." },
-    { topic: "Endocrine", question: "Which hormone is responsible for the 'fight or flight' response?", options: ["Cortisol", "Aldosterone", "Adrenaline", "Melatonin"], answer: 2, explanation: "Adrenaline triggers the 'fight or flight' response." },
-    { topic: "Endocrine", question: "The zona glomerulosa of the adrenal cortex secretes:", options: ["Cortisol", "Aldosterone", "Androgens", "Adrenaline"], answer: 1, explanation: "The zona glomerulosa secretes aldosterone." },
-    { topic: "Endocrine", question: "Which hormone lowers blood glucose levels?", options: ["Glucagon", "Insulin", "Cortisol", "Growth hormone"], answer: 1, explanation: "Insulin lowers blood glucose levels." },
-    { topic: "Endocrine", question: "Melatonin, which regulates sleep, is produced by the:", options: ["Pineal gland", "Thymus", "Pituitary", "Hypothalamus"], answer: 0, explanation: "The pineal gland produces melatonin." },
-    { topic: "Endocrine", question: "Thymosin, important for T-lymphocyte maturation, is produced by the:", options: ["Thyroid", "Thymus", "Adrenal", "Pancreas"], answer: 1, explanation: "The thymus produces thymosin." },
-
-    // CARDIOVASCULAR (39-45)
-    { topic: "Cardiovascular", question: "Which chamber receives deoxygenated blood from the body?", options: ["Left atrium", "Left ventricle", "Right atrium", "Right ventricle"], answer: 2, explanation: "The right atrium receives deoxygenated blood." },
-    { topic: "Cardiovascular", question: "Blood is pumped from the right ventricle to the lungs through the:", options: ["Aorta", "Pulmonary arteries", "Pulmonary veins", "Coronary arteries"], answer: 1, explanation: "The right ventricle pumps blood through the pulmonary arteries." },
-    { topic: "Cardiovascular", question: "Oxygenated blood returns from the lungs via the:", options: ["Pulmonary arteries", "Pulmonary veins", "Aorta", "Vena cava"], answer: 1, explanation: "Oxygenated blood returns through the pulmonary veins." },
-    { topic: "Cardiovascular", question: "Which valve separates the left atrium from the left ventricle?", options: ["Tricuspid", "Pulmonary", "Mitral (bicuspid)", "Aortic"], answer: 2, explanation: "The mitral (bicuspid) valve separates the left atrium and ventricle." },
-    { topic: "Cardiovascular", question: "The SA node, the 'pacemaker,' is located in the:", options: ["Left atrium", "Right atrium", "Left ventricle", "Septum"], answer: 1, explanation: "The SA node is located in the right atrium." },
-    { topic: "Cardiovascular", question: "On an ECG, the P wave represents:", options: ["Ventricular depolarization", "Ventricular repolarization", "Atrial depolarization", "Purkinje repolarization"], answer: 2, explanation: "The P wave represents atrial depolarization." },
-    { topic: "Cardiovascular", question: "The QRS complex on an ECG represents:", options: ["Atrial depolarization", "Ventricular depolarization", "Ventricular repolarization", "Atrial repolarization"], answer: 1, explanation: "The QRS complex represents ventricular depolarization." },
-
-    // RESPIRATORY (46-50)
-    { topic: "Respiratory", question: "Which is part of the UPPER respiratory tract?", options: ["Trachea", "Bronchi", "Pharynx", "Alveoli"], answer: 2, explanation: "The pharynx is part of the upper respiratory tract." },
-    { topic: "Respiratory", question: "Gas exchange occurs in which structure?", options: ["Bronchioles", "Terminal bronchioles", "Alveoli", "Trachea"], answer: 2, explanation: "Gas exchange occurs in the alveoli." },
-    { topic: "Respiratory", question: "The larynx is part of the:", options: ["Upper respiratory tract", "Lower respiratory tract", "Digestive system", "Endocrine system"], answer: 1, explanation: "The larynx is part of the lower respiratory tract." },
-    { topic: "Respiratory", question: "Which structure warms, moistens, and filters air?", options: ["Larynx", "Trachea", "Nasal cavity", "Bronchi"], answer: 2, explanation: "The nasal cavity warms, moistens, and filters air." },
-    { topic: "Respiratory", question: "The trachea divides into:", options: ["Bronchioles", "Primary bronchi", "Alveoli", "Larynx"], answer: 1, explanation: "The trachea divides into the primary bronchi." }
+var questions = [
+// SKIN (1-10)
+{topic:"Skin",question:"Which layer of the skin provides protection against injury, pathogens, and water loss?",options:["Dermis","Subcutaneous","Epidermis","Hypodermis"],answer:2,explanation:"The epidermis is the outermost layer that provides protection."},
+{topic:"Skin",question:"What is the function of melanocytes?",options:["Produce keratin","Produce melanin for UV protection","Regulate temperature","Detect touch"],answer:1,explanation:"Melanocytes produce melanin, which protects against UV radiation."},
+{topic:"Skin",question:"Which layer contains blood vessels, nerves, and glands?",options:["Epidermis","Dermis","Subcutaneous","Stratum corneum"],answer:1,explanation:"The dermis contains blood vessels, nerves, glands, and hair follicles."},
+{topic:"Skin",question:"What is the function of sebaceous glands?",options:["Regulate temperature","Secrete sebum to lubricate skin","Produce sweat","Detect pain"],answer:1,explanation:"Sebaceous glands secrete sebum, which lubricates and waterproofs the skin."},
+{topic:"Skin",question:"The hypodermis functions to:",options:["Produce melanin","Provide strength","Insulate body, store fat, cushion structures","Detect stimuli"],answer:2,explanation:"The subcutaneous layer insulates, stores fat, and cushions structures."},
+{topic:"Skin",question:"Which cells produce keratin?",options:["Melanocytes","Keratinocytes","Langerhans","Merkel"],answer:1,explanation:"Keratinocytes produce keratin, which strengthens and waterproofs the skin."},
+{topic:"Skin",question:"What is the function of Langerhans cells?",options:["Produce melanin","Immune response","Produce keratin","Sense touch"],answer:1,explanation:"Langerhans cells are involved in immune responses in the skin."},
+{topic:"Skin",question:"What is the function of Merkel cells?",options:["Produce melanin","Immune response","Sense touch and pressure","Produce keratin"],answer:2,explanation:"Merkel cells sense touch and pressure."},
+{topic:"Skin",question:"Which gland produces sweat?",options:["Sebaceous","Sweat","Ceruminous","Mammary"],answer:1,explanation:"Sweat glands produce sweat to regulate body temperature."},
+{topic:"Skin",question:"What is the outermost layer of the epidermis?",options:["Stratum basale","Stratum spinosum","Stratum granulosum","Stratum corneum"],answer:3,explanation:"The stratum corneum is the outermost layer of the epidermis."},
+// NAILS (11-15)
+{topic:"Nails",question:"What is the growth center of the nail?",options:["Nail bed","Nail plate","Nail matrix","Lunula"],answer:2,explanation:"The nail matrix is the growth center that produces new nail cells."},
+{topic:"Nails",question:"The white crescent at the base of the nail is the:",options:["Cuticle","Hyponychium","Lunula","Nail fold"],answer:2,explanation:"The lunula is the visible white crescent at the base of the nail."},
+{topic:"Nails",question:"Which structure prevents infection by sealing the nail plate?",options:["Hyponychium","Nail folds","Cuticle","Free edge"],answer:2,explanation:"The cuticle seals the space between the nail plate and skin."},
+{topic:"Nails",question:"The hard keratin structure that protects the fingertip is the:",options:["Nail bed","Nail plate","Nail matrix","Nail folds"],answer:1,explanation:"The nail plate is the hard keratin structure that protects the fingertip."},
+{topic:"Nails",question:"The hyponychium functions to:",options:["Produce nail cells","Seal nail space","Protect free edge from pathogens","Surround nail edges"],answer:2,explanation:"The hyponychium protects the free edge and prevents pathogen entry."},
+// SKELETAL (16-30)
+{topic:"Skeletal",question:"How many bones make up the adult skeleton?",options:["180","206","212","220"],answer:1,explanation:"The adult human skeleton consists of 206 bones."},
+{topic:"Skeletal",question:"The axial skeleton consists of how many bones?",options:["80","126","206","56"],answer:0,explanation:"The axial skeleton contains 80 bones."},
+{topic:"Skeletal",question:"Which is NOT a cranial bone?",options:["Frontal","Parietal","Mandible","Occipital"],answer:2,explanation:"The mandible is a facial bone, not a cranial bone."},
+{topic:"Skeletal",question:"How many pairs of ribs are there?",options:["10","12","14","16"],answer:1,explanation:"There are 12 pairs of ribs: 7 true, 3 false, 2 floating."},
+{topic:"Skeletal",question:"The appendicular skeleton consists of how many bones?",options:["80","126","206","100"],answer:1,explanation:"The appendicular skeleton consists of 126 bones."},
+{topic:"Skeletal",question:"Which bone is NOT part of the axial skeleton?",options:["Sternum","Vertebral column","Skull","Femur"],answer:3,explanation:"The femur is part of the appendicular skeleton."},
+{topic:"Skeletal",question:"The hyoid bone is located in the:",options:["Skull","Neck","Chest","Pelvis"],answer:1,explanation:"The hyoid bone is located in the neck and supports the tongue."},
+{topic:"Skeletal",question:"How many vertebrae make up the vertebral column?",options:["26","30","33","24"],answer:0,explanation:"The vertebral column has 26 bones."},
+{topic:"Skeletal",question:"The auditory ossicles are located in the:",options:["Inner ear","Middle ear","Outer ear","Skull"],answer:1,explanation:"The auditory ossicles are in the middle ear."},
+{topic:"Skeletal",question:"How many cervical vertebrae are there?",options:["5","7","12","5"],answer:1,explanation:"There are 7 cervical vertebrae."},
+{topic:"Skeletal",question:"How many thoracic vertebrae are there?",options:["7","12","5","4"],answer:1,explanation:"There are 12 thoracic vertebrae."},
+{topic:"Skeletal",question:"How many lumbar vertebrae are there?",options:["7","12","5","4"],answer:2,explanation:"There are 5 lumbar vertebrae."},
+{topic:"Skeletal",question:"What is the function of the sacrum?",options:["Supports skull","Forms pelvis","Supports neck","Forms chest"],answer:1,explanation:"The sacrum forms part of the pelvis."},
+{topic:"Skeletal",question:"Which is the longest and heaviest bone?",options:["Tibia","Fibula","Femur","Humerus"],answer:2,explanation:"The femur is the longest and heaviest bone."},
+{topic:"Skeletal",question:"What is the function of the sternum?",options:["Protects heart","Supports skull","Forms pelvis","Supports neck"],answer:0,explanation:"The sternum protects the heart and forms the anterior chest wall."},
+// NERVOUS (31-45)
+{topic:"Nervous",question:"Which brain part controls thinking, memory, and voluntary movement?",options:["Cerebellum","Cerebrum","Medulla","Hypothalamus"],answer:1,explanation:"The cerebrum controls higher functions."},
+{topic:"Nervous",question:"The thalamus functions as a:",options:["Sensory relay","Temperature control","Balance center","Breathing center"],answer:0,explanation:"The thalamus is a relay station for sensory impulses."},
+{topic:"Nervous",question:"Which part controls temperature, hunger, thirst, and hormones?",options:["Cerebrum","Thalamus","Hypothalamus","Pons"],answer:2,explanation:"The hypothalamus controls temperature, hunger, thirst, and hormones."},
+{topic:"Nervous",question:"The cerebellum is responsible for:",options:["Visual reflexes","Balance and coordination","Heartbeat","Memory"],answer:1,explanation:"The cerebellum controls balance, posture, and coordination."},
+{topic:"Nervous",question:"Which lobe is responsible for vision?",options:["Frontal","Temporal","Occipital","Parietal"],answer:2,explanation:"The occipital lobe interprets visual information."},
+{topic:"Nervous",question:"The medulla oblongata controls:",options:["Movement","Thinking","Heartbeat and breathing","Balance"],answer:2,explanation:"The medulla controls heartbeat, breathing, and blood pressure."},
+{topic:"Nervous",question:"Broca's area, for speech production, is in which lobe?",options:["Temporal","Parietal","Frontal","Occipital"],answer:2,explanation:"Broca's area is in the frontal lobe."},
+{topic:"Nervous",question:"Wernicke's area, for language understanding, is in which lobe?",options:["Frontal","Temporal","Parietal","Occipital"],answer:1,explanation:"Wernicke's area is in the temporal lobe."},
+{topic:"Nervous",question:"How many segments make up the spinal cord?",options:["30","31","32","33"],answer:1,explanation:"The spinal cord has 31 segments."},
+{topic:"Nervous",question:"The dorsal root of the spinal nerve functions to:",options:["Send motor impulses","Receive sensory input","Control autonomic functions","Coordinate reflexes"],answer:1,explanation:"The dorsal root carries sensory input to the spinal cord."},
+{topic:"Nervous",question:"What is the function of the pons?",options:["Balance","Relay signals and regulate breathing","Vision","Memory"],answer:1,explanation:"The pons relays signals and helps regulate breathing."},
+{topic:"Nervous",question:"What is the function of the corpus callosum?",options:["Connects hemispheres","Controls balance","Regulates breathing","Processes vision"],answer:0,explanation:"The corpus callosum connects the left and right hemispheres."},
+{topic:"Nervous",question:"What is the function of the frontal lobe?",options:["Vision","Hearing","Thinking, reasoning, motor control","Balance"],answer:2,explanation:"The frontal lobe controls thinking, reasoning, and motor control."},
+{topic:"Nervous",question:"What is the function of the temporal lobe?",options:["Vision","Hearing, memory, language","Balance","Motor control"],answer:1,explanation:"The temporal lobe handles hearing, memory, and language."},
+{topic:"Nervous",question:"What is the function of the parietal lobe?",options:["Vision","Hearing","Sensation, touch, spatial awareness","Balance"],answer:2,explanation:"The parietal lobe processes sensation, touch, and spatial awareness."},
+// ENDOCRINE (46-55)
+{topic:"Endocrine",question:"Which gland is known as the 'master gland'?",options:["Thyroid","Adrenal","Pituitary","Pineal"],answer:2,explanation:"The pituitary gland is the 'master gland'."},
+{topic:"Endocrine",question:"Which hormone from the thyroid regulates metabolism?",options:["Insulin","Thyroxine (T4)","Adrenaline","Cortisol"],answer:1,explanation:"Thyroxine (T4) regulates metabolism."},
+{topic:"Endocrine",question:"Which hormone increases blood calcium?",options:["Calcitonin","Parathyroid hormone","Insulin","Aldosterone"],answer:1,explanation:"Parathyroid hormone increases blood calcium."},
+{topic:"Endocrine",question:"Which hormone triggers 'fight or flight'?",options:["Cortisol","Aldosterone","Adrenaline","Melatonin"],answer:2,explanation:"Adrenaline triggers the 'fight or flight' response."},
+{topic:"Endocrine",question:"The zona glomerulosa secretes:",options:["Cortisol","Aldosterone","Androgens","Adrenaline"],answer:1,explanation:"The zona glomerulosa secretes aldosterone."},
+{topic:"Endocrine",question:"Which hormone lowers blood glucose?",options:["Glucagon","Insulin","Cortisol","Growth hormone"],answer:1,explanation:"Insulin lowers blood glucose levels."},
+{topic:"Endocrine",question:"Melatonin is produced by the:",options:["Pineal","Thymus","Pituitary","Hypothalamus"],answer:0,explanation:"The pineal gland produces melatonin."},
+{topic:"Endocrine",question:"Thymosin is produced by the:",options:["Thyroid","Thymus","Adrenal","Pancreas"],answer:1,explanation:"The thymus produces thymosin."},
+{topic:"Endocrine",question:"What is the function of the pancreas?",options:["Produce insulin and glucagon","Produce cortisol","Produce adrenaline","Produce thyroxine"],answer:0,explanation:"The pancreas produces insulin and glucagon."},
+{topic:"Endocrine",question:"What does the adrenal medulla produce?",options:["Aldosterone","Cortisol","Adrenaline and noradrenaline","Insulin"],answer:2,explanation:"The adrenal medulla produces adrenaline and noradrenaline."},
+// CARDIOVASCULAR (56-75)
+{topic:"Cardiovascular",question:"Which chamber receives deoxygenated blood from the body?",options:["Left atrium","Left ventricle","Right atrium","Right ventricle"],answer:2,explanation:"The right atrium receives deoxygenated blood."},
+{topic:"Cardiovascular",question:"Blood is pumped from right ventricle to lungs through the:",options:["Aorta","Pulmonary arteries","Pulmonary veins","Coronary arteries"],answer:1,explanation:"The right ventricle pumps blood through the pulmonary arteries."},
+{topic:"Cardiovascular",question:"Oxygenated blood returns from lungs via the:",options:["Pulmonary arteries","Pulmonary veins","Aorta","Vena cava"],answer:1,explanation:"Oxygenated blood returns through the pulmonary veins."},
+{topic:"Cardiovascular",question:"Which valve separates left atrium from left ventricle?",options:["Tricuspid","Pulmonary","Mitral (bicuspid)","Aortic"],answer:2,explanation:"The mitral (bicuspid) valve separates the left atrium and ventricle."},
+{topic:"Cardiovascular",question:"The SA node (pacemaker) is located in the:",options:["Left atrium","Right atrium","Left ventricle","Septum"],answer:1,explanation:"The SA node is in the right atrium."},
+{topic:"Cardiovascular",question:"On an ECG, the P wave represents:",options:["Ventricular depolarization","Ventricular repolarization","Atrial depolarization","Purkinje repolarization"],answer:2,explanation:"The P wave represents atrial depolarization."},
+{topic:"Cardiovascular",question:"The QRS complex on an ECG represents:",options:["Atrial depolarization","Ventricular depolarization","Ventricular repolarization","Atrial repolarization"],answer:1,explanation:"The QRS complex represents ventricular depolarization."},
+{topic:"Cardiovascular",question:"What is the function of the aorta?",options:["Carry deoxygenated blood to lungs","Carry oxygenated blood to body","Carry blood to heart","Carry blood to brain"],answer:1,explanation:"The aorta carries oxygenated blood from the heart to the body."},
+{topic:"Cardiovascular",question:"What is the function of the vena cava?",options:["Carry oxygenated blood to body","Carry deoxygenated blood to heart","Carry blood to lungs","Carry blood to brain"],answer:1,explanation:"The vena cava carries deoxygenated blood to the heart."},
+{topic:"Cardiovascular",question:"What is the function of the tricuspid valve?",options:["Separate left atrium/ventricle","Separate right atrium/ventricle","Separate left ventricle/aorta","Separate right ventricle/pulmonary"],answer:1,explanation:"The tricuspid valve separates the right atrium and ventricle."},
+{topic:"Cardiovascular",question:"What is the function of the pulmonary valve?",options:["Separate left atrium/ventricle","Separate right atrium/ventricle","Separate left ventricle/aorta","Separate right ventricle/pulmonary"],answer:3,explanation:"The pulmonary valve separates the right ventricle and pulmonary artery."},
+{topic:"Cardiovascular",question:"What is the function of the aortic valve?",options:["Separate left atrium/ventricle","Separate right atrium/ventricle","Separate left ventricle/aorta","Separate right ventricle/pulmonary"],answer:2,explanation:"The aortic valve separates the left ventricle and aorta."},
+{topic:"Cardiovascular",question:"What is the function of coronary arteries?",options:["Supply blood to lungs","Supply blood to heart muscle","Supply blood to brain","Supply blood to kidneys"],answer:1,explanation:"Coronary arteries supply blood to the heart muscle."},
+{topic:"Cardiovascular",question:"What is the function of cardiac veins?",options:["Supply blood to heart","Drain blood from heart","Supply blood to lungs","Drain blood from lungs"],answer:1,explanation:"Cardiac veins drain blood from the heart muscle."},
+{topic:"Cardiovascular",question:"What is the normal resting heart rate?",options:["40-50 bpm","60-100 bpm","110-120 bpm","130-150 bpm"],answer:1,explanation:"Normal resting heart rate is 60-100 bpm."},
+{topic:"Cardiovascular",question:"What is bradycardia?",options:["Fast heart rate","Slow heart rate","Irregular heart rate","Normal heart rate"],answer:1,explanation:"Bradycardia is a slow heart rate below 60 bpm."},
+{topic:"Cardiovascular",question:"What is tachycardia?",options:["Fast heart rate","Slow heart rate","Irregular heart rate","Normal heart rate"],answer:0,explanation:"Tachycardia is a fast heart rate above 100 bpm."},
+{topic:"Cardiovascular",question:"What is the function of capillaries?",options:["Carry blood away from heart","Carry blood to heart","Exchange nutrients and waste","Carry oxygenated blood"],answer:2,explanation:"Capillaries exchange nutrients and waste between blood and tissues."},
+{topic:"Cardiovascular",question:"What is the function of arteries?",options:["Carry blood away from heart","Carry blood to heart","Exchange nutrients","Carry deoxygenated blood"],answer:0,explanation:"Arteries carry blood away from the heart."},
+{topic:"Cardiovascular",question:"What is the function of veins?",options:["Carry blood away from heart","Carry blood to heart","Exchange nutrients","Carry oxygenated blood"],answer:1,explanation:"Veins carry blood to the heart."},
+// RESPIRATORY (76-85)
+{topic:"Respiratory",question:"Which is part of the UPPER respiratory tract?",options:["Trachea","Bronchi","Pharynx","Alveoli"],answer:2,explanation:"The pharynx is part of the upper respiratory tract."},
+{topic:"Respiratory",question:"Gas exchange occurs in which structure?",options:["Bronchioles","Terminal bronchioles","Alveoli","Trachea"],answer:2,explanation:"Gas exchange occurs in the alveoli."},
+{topic:"Respiratory",question:"The larynx is part of the:",options:["Upper respiratory tract","Lower respiratory tract","Digestive system","Endocrine system"],answer:1,explanation:"The larynx is part of the lower respiratory tract."},
+{topic:"Respiratory",question:"Which structure warms, moistens, and filters air?",options:["Larynx","Trachea","Nasal cavity","Bronchi"],answer:2,explanation:"The nasal cavity warms, moistens, and filters air."},
+{topic:"Respiratory",question:"The trachea divides into:",options:["Bronchioles","Primary bronchi","Alveoli","Larynx"],answer:1,explanation:"The trachea divides into the primary bronchi."},
+{topic:"Respiratory",question:"What is the function of the diaphragm?",options:["Primary muscle of breathing","Supports lungs","Filters air","Produces sound"],answer:0,explanation:"The diaphragm is the primary muscle of breathing."},
+{topic:"Respiratory",question:"What is the function of the epiglottis?",options:["Filters air","Produces sound","Prevents food from entering trachea","Warms air"],answer:2,explanation:"The epiglottis prevents food from entering the trachea."},
+{topic:"Respiratory",question:"What is the function of the bronchi?",options:["Exchange gas","Carry air from trachea to lungs","Filter air","Warm air"],answer:1,explanation:"The bronchi carry air from the trachea to the lungs."},
+{topic:"Respiratory",question:"What is the function of the bronchioles?",options:["Carry air to alveoli","Exchange gas","Filter air","Produce sound"],answer:0,explanation:"Bronchioles carry air to the alveoli."},
+{topic:"Respiratory",question:"What is the function of surfactant in the lungs?",options:["Filter air","Reduce surface tension in alveoli","Warm air","Produce mucus"],answer:1,explanation:"Surfactant reduces surface tension in the alveoli."},
+// DIGESTIVE (86-95)
+{topic:"Digestive",question:"What is the function of the stomach?",options:["Absorb nutrients","Digest food with acid and enzymes","Store bile","Absorb water"],answer:1,explanation:"The stomach digests food with acid and enzymes."},
+{topic:"Digestive",question:"What is the function of the small intestine?",options:["Store food","Absorb nutrients","Produce bile","Store waste"],answer:1,explanation:"The small intestine absorbs nutrients."},
+{topic:"Digestive",question:"What is the function of the large intestine?",options:["Absorb nutrients","Absorb water and electrolytes","Digest food","Produce bile"],answer:1,explanation:"The large intestine absorbs water and electrolytes."},
+{topic:"Digestive",question:"What is the function of the liver?",options:["Store bile","Produce bile and detoxify","Absorb nutrients","Digest food"],answer:1,explanation:"The liver produces bile and detoxifies substances."},
+{topic:"Digestive",question:"What is the function of the gallbladder?",options:["Produce bile","Store and concentrate bile","Absorb nutrients","Digest food"],answer:1,explanation:"The gallbladder stores and concentrates bile."},
+{topic:"Digestive",question:"What is the function of the pancreas in digestion?",options:["Produce bile","Produce digestive enzymes","Store bile","Absorb nutrients"],answer:1,explanation:"The pancreas produces digestive enzymes."},
+{topic:"Digestive",question:"What is the function of the esophagus?",options:["Digest food","Carry food from mouth to stomach","Absorb nutrients","Store food"],answer:1,explanation:"The esophagus carries food from the mouth to the stomach."},
+{topic:"Digestive",question:"What is the function of the villi?",options:["Produce enzymes","Absorb nutrients","Store waste","Digest food"],answer:1,explanation:"Villi increase surface area for nutrient absorption."},
+{topic:"Digestive",question:"What is the function of the ileocecal valve?",options:["Connect stomach to small intestine","Connect small intestine to large intestine","Connect large intestine to rectum","Connect esophagus to stomach"],answer:1,explanation:"The ileocecal valve connects the small intestine to the large intestine."},
+{topic:"Digestive",question:"What is the function of the rectum?",options:["Absorb nutrients","Store feces before elimination","Digest food","Produce enzymes"],answer:1,explanation:"The rectum stores feces before elimination."},
+// URINARY (96-100)
+{topic:"Urinary",question:"What is the function of the kidney?",options:["Filter blood and produce urine","Store urine","Carry urine","Absorb nutrients"],answer:0,explanation:"The kidney filters blood and produces urine."},
+{topic:"Urinary",question:"What is the function of the nephron?",options:["Store urine","Filter blood","Carry urine","Absorb nutrients"],answer:1,explanation:"The nephron is the functional unit that filters blood."},
+{topic:"Urinary",question:"What is the function of the ureter?",options:["Filter blood","Carry urine from kidney to bladder","Store urine","Carry urine from bladder"],answer:1,explanation:"The ureter carries urine from the kidney to the bladder."},
+{topic:"Urinary",question:"What is the function of the bladder?",options:["Filter blood","Store urine","Carry urine","Absorb water"],answer:1,explanation:"The bladder stores urine."},
+{topic:"Urinary",question:"What is the function of the urethra?",options:["Filter blood","Store urine","Carry urine from bladder to outside","Absorb water"],answer:2,explanation:"The urethra carries urine from the bladder to the outside."}
 ];
 
 // ============================================================
 // EXAM FUNCTIONS
 // ============================================================
-let currentQuestionIndex = 0;
-let score = 0;
-let selectedOption = null;
-let timer = 45;
-let timerInterval = null;
-let examStarted = false;
-let userAnswers = [];
-let currentFilter = 'all';
+var currentQuestionIndex = 0;
+var score = 0;
+var selectedOption = null;
+var timer = 60;
+var timerInterval = null;
+var examStarted = false;
+var userAnswers = [];
+var currentFilter = 'all';
 
 function showPage(pageId) {
     document.getElementById('loginPage').classList.add('hidden');
@@ -327,8 +362,8 @@ function showPage(pageId) {
 }
 
 function startExam() {
-    const name = document.getElementById('studentName').value.trim();
-    const id = document.getElementById('studentId').value.trim();
+    var name = document.getElementById('studentName').value.trim();
+    var id = document.getElementById('studentId').value.trim();
     if (name === '') { alert('Please enter your full name.'); return; }
     if (id === '') { alert('Please enter your student ID.'); return; }
     localStorage.setItem('studentName', name);
@@ -337,7 +372,7 @@ function startExam() {
 }
 
 function beginExam() {
-    const name = localStorage.getItem('studentName');
+    var name = localStorage.getItem('studentName');
     if (!name) { alert('Please login first!'); showPage('loginPage'); return; }
     showPage('examPage');
     if (!examStarted) {
@@ -353,34 +388,34 @@ function loadQuestion() {
         showResult();
         return;
     }
-    const q = questions[currentQuestionIndex];
+    var q = questions[currentQuestionIndex];
     document.getElementById('questionNumber').textContent = 'Question ' + (currentQuestionIndex + 1) + ' of ' + questions.length;
     document.getElementById('questionText').innerHTML = '<span class="topic-tag">' + q.topic + '</span><br><br>' + q.question;
     document.getElementById('studentInfo').textContent = '👤 ' + localStorage.getItem('studentName') + ' | ID: ' + localStorage.getItem('studentId');
     
-    const container = document.getElementById('optionsContainer');
+    var container = document.getElementById('optionsContainer');
     container.innerHTML = '';
-    const labels = ['A', 'B', 'C', 'D'];
-    q.options.forEach(function(option, index) {
-        const btn = document.createElement('button');
-        btn.innerHTML = '<span style="font-weight:bold;">' + labels[index] + '.</span> ' + option;
-        btn.onclick = function() { selectOption(index); };
+    var labels = ['A', 'B', 'C', 'D'];
+    for (var i = 0; i < q.options.length; i++) {
+        var btn = document.createElement('button');
+        btn.innerHTML = '<span style="font-weight:bold;">' + labels[i] + '.</span> ' + q.options[i];
+        btn.onclick = (function(index) { return function() { selectOption(index); }; })(i);
         container.appendChild(btn);
-    });
+    }
     selectedOption = null;
     updateProgress();
 }
 
 function selectOption(index) {
     selectedOption = index;
-    const buttons = document.querySelectorAll('#optionsContainer button');
-    buttons.forEach(function(btn, i) {
+    var buttons = document.querySelectorAll('#optionsContainer button');
+    for (var i = 0; i < buttons.length; i++) {
         if (i === index) {
-            btn.classList.add('selected');
+            buttons[i].classList.add('selected');
         } else {
-            btn.classList.remove('selected');
+            buttons[i].classList.remove('selected');
         }
-    });
+    }
 }
 
 function nextQuestion() {
@@ -397,7 +432,7 @@ function nextQuestion() {
 }
 
 function updateProgress() {
-    var progress = ((currentQuestionIndex) / questions.length) * 100;
+    var progress = (currentQuestionIndex / questions.length) * 100;
     document.getElementById('progressFill').style.width = progress + '%';
 }
 
@@ -414,7 +449,6 @@ function showResult() {
     else if (percentage >= 40) message = '📚 Need more study. Review weak areas.';
     else message = '💪 Keep studying! You will improve.';
     document.getElementById('resultMessage').textContent = message;
-    
     displayReview();
 }
 
@@ -423,12 +457,13 @@ function displayReview() {
     container.innerHTML = '';
     var labels = ['A', 'B', 'C', 'D'];
     
-    questions.forEach(function(q, index) {
-        var userAnswer = userAnswers[index] !== undefined ? userAnswers[index] : -1;
+    for (var i = 0; i < questions.length; i++) {
+        var q = questions[i];
+        var userAnswer = (userAnswers[i] !== undefined) ? userAnswers[i] : -1;
         var isCorrect = userAnswer === q.answer;
         
-        if (currentFilter === 'correct' && !isCorrect) return;
-        if (currentFilter === 'wrong' && isCorrect) return;
+        if (currentFilter === 'correct' && !isCorrect) continue;
+        if (currentFilter === 'wrong' && isCorrect) continue;
         
         var div = document.createElement('div');
         div.className = 'review-item ' + (isCorrect ? 'correct-review' : 'wrong-review');
@@ -443,11 +478,11 @@ function displayReview() {
             }
         }
         
-        div.innerHTML = '<div class="review-question">Q' + (index + 1) + ': ' + q.question + '</div>' +
+        div.innerHTML = '<div class="review-question">Q' + (i + 1) + ': ' + q.question + '</div>' +
                         '<div class="review-answer">' + answerText + (isCorrect ? ' ✅' : ' ❌') + '</div>' +
                         '<div class="review-explanation"><strong>💡 Explanation:</strong> ' + q.explanation + '</div>';
         container.appendChild(div);
-    });
+    }
 }
 
 function filterReview(filter) {
@@ -487,7 +522,7 @@ function restartExam() {
     showPage('loginPage');
     document.getElementById('studentName').value = '';
     document.getElementById('studentId').value = '';
-    document.getElementById('timerDisplay').textContent = '⏱️ 45:00';
+    document.getElementById('timerDisplay').textContent = '⏱️ 60:00';
     document.getElementById('progressFill').style.width = '0%';
 }
 
