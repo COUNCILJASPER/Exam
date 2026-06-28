@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMCN Exam Prep - 100 Questions</title>
+    <title>NMCN Exam Prep - 50 Questions</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -161,12 +161,12 @@
 <body>
 
 <div class="container" id="app">
-    <!-- ===== LOGIN PAGE ===== -->
+    <!-- LOGIN PAGE -->
     <div id="loginPage">
         <div class="logo">🏥</div>
         <h1>NMCN Exam Prep</h1>
         <p class="subtitle">Nursing & Midwifery Council of Nigeria</p>
-        <p style="font-size:13px; color:#2d5aa0; font-weight:bold;">📚 100 Questions • ⏱️ 45 Minutes</p>
+        <p style="font-size:13px; color:#2d5aa0; font-weight:bold;">📚 50 Questions • ⏱️ 45 Minutes</p>
         <hr>
         <h2>Login to Start Exam</h2>
         <input type="text" id="studentName" placeholder="Enter your full name">
@@ -176,7 +176,7 @@
         <p class="footer">© 2026 NMCN Exam Prep</p>
     </div>
 
-    <!-- ===== INSTRUCTIONS PAGE ===== -->
+    <!-- INSTRUCTIONS PAGE -->
     <div id="instructionsPage" class="hidden">
         <div class="logo">📋</div>
         <h1>NMCN Exam Prep</h1>
@@ -184,11 +184,11 @@
         <h2>Exam Instructions</h2>
         <div class="instructions">
             <ol>
-                <li>This exam contains <strong>100 questions</strong>.</li>
+                <li>This exam contains <strong>50 questions</strong>.</li>
                 <li>Each question has <strong>4 options</strong>.</li>
                 <li>Select the <strong>best answer</strong> for each question.</li>
                 <li>You <strong>cannot go back</strong> to previous questions.</li>
-                <li>After completing the exam, you'll see <strong>all questions with correct answers AND explanations</strong>.</li>
+                <li>After completing, you'll see <strong>all questions with explanations</strong>.</li>
                 <li>Time limit: <strong>45 minutes</strong>.</li>
                 <li><strong>Good luck!</strong></li>
             </ol>
@@ -197,7 +197,7 @@
         <p class="footer">© 2026 NMCN Exam Prep</p>
     </div>
 
-    <!-- ===== EXAM PAGE ===== -->
+    <!-- EXAM PAGE -->
     <div id="examPage" class="hidden">
         <div class="logo">📝</div>
         <h1>NMCN Exam Prep</h1>
@@ -214,7 +214,7 @@
         <p class="footer">© 2026 NMCN Exam Prep</p>
     </div>
 
-    <!-- ===== RESULT PAGE ===== -->
+    <!-- RESULT PAGE -->
     <div id="resultPage" class="hidden">
         <div style="font-size:60px; margin-bottom:10px;">🏆</div>
         <h1>Exam Complete!</h1>
@@ -237,374 +237,78 @@
 </div>
 
 <script>
-// ===== QUESTIONS (50 Anatomy & Physiology Questions) =====
+// ============================================================
+// 50 ANATOMY & PHYSIOLOGY QUESTIONS
+// ============================================================
 const questions = [
-    // SKIN & INTEGUMENTARY SYSTEM (1-6)
-    {
-        topic: "Skin",
-        question: "Which layer of the skin provides protection against injury, pathogens, and water loss?",
-        options: ["Dermis", "Subcutaneous layer", "Epidermis", "Hypodermis"],
-        answer: 2,
-        explanation: "The epidermis is the outermost layer that provides protection against injury, pathogens, and water loss."
-    },
-    {
-        topic: "Skin",
-        question: "What is the function of melanocytes in the skin?",
-        options: ["Produce keratin", "Produce melanin for skin color and UV protection", "Regulate body temperature", "Detect touch and pressure"],
-        answer: 1,
-        explanation: "Melanocytes produce melanin, which gives skin its color and protects against UV radiation damage."
-    },
-    {
-        topic: "Skin",
-        question: "Which layer of the skin contains blood vessels, nerves, glands, and hair follicles?",
-        options: ["Epidermis", "Dermis", "Subcutaneous layer", "Stratum corneum"],
-        answer: 1,
-        explanation: "The dermis is the middle layer containing blood vessels, nerves, glands, and hair follicles, providing strength and elasticity."
-    },
-    {
-        topic: "Skin",
-        question: "What is the function of sebaceous (oil) glands?",
-        options: ["Regulate body temperature", "Secrete sebum to lubricate and waterproof the skin", "Produce sweat", "Detect pain sensations"],
-        answer: 1,
-        explanation: "Sebaceous glands secrete sebum, which lubricates and waterproofs the skin and hair."
-    },
-    {
-        topic: "Skin",
-        question: "The hypodermis (subcutaneous layer) functions to:",
-        options: ["Produce melanin", "Provide strength and elasticity", "Insulate the body, store fat, and cushion structures", "Detect sensory stimuli"],
-        answer: 2,
-        explanation: "The subcutaneous layer insulates the body, stores fat, and cushions underlying structures."
-    },
-    {
-        topic: "Skin",
-        question: "Which cells produce keratin, which strengthens and waterproofs the skin?",
-        options: ["Melanocytes", "Keratinocytes", "Langerhans cells", "Merkel cells"],
-        answer: 1,
-        explanation: "Keratinocytes produce keratin, a protein that strengthens and waterproofs the skin."
-    },
+    // SKIN & INTEGUMENTARY (1-6)
+    { topic: "Skin", question: "Which layer of the skin provides protection against injury, pathogens, and water loss?", options: ["Dermis", "Subcutaneous layer", "Epidermis", "Hypodermis"], answer: 2, explanation: "The epidermis is the outermost layer that provides protection." },
+    { topic: "Skin", question: "What is the function of melanocytes in the skin?", options: ["Produce keratin", "Produce melanin for skin color and UV protection", "Regulate body temperature", "Detect touch and pressure"], answer: 1, explanation: "Melanocytes produce melanin, which gives skin its color and protects against UV radiation." },
+    { topic: "Skin", question: "Which layer of the skin contains blood vessels, nerves, glands, and hair follicles?", options: ["Epidermis", "Dermis", "Subcutaneous layer", "Stratum corneum"], answer: 1, explanation: "The dermis is the middle layer containing blood vessels, nerves, glands, and hair follicles." },
+    { topic: "Skin", question: "What is the function of sebaceous (oil) glands?", options: ["Regulate body temperature", "Secrete sebum to lubricate and waterproof the skin", "Produce sweat", "Detect pain sensations"], answer: 1, explanation: "Sebaceous glands secrete sebum, which lubricates and waterproofs the skin and hair." },
+    { topic: "Skin", question: "The hypodermis (subcutaneous layer) functions to:", options: ["Produce melanin", "Provide strength and elasticity", "Insulate the body, store fat, and cushion structures", "Detect sensory stimuli"], answer: 2, explanation: "The subcutaneous layer insulates the body, stores fat, and cushions underlying structures." },
+    { topic: "Skin", question: "Which cells produce keratin, which strengthens and waterproofs the skin?", options: ["Melanocytes", "Keratinocytes", "Langerhans cells", "Merkel cells"], answer: 1, explanation: "Keratinocytes produce keratin, a protein that strengthens and waterproofs the skin." },
 
-    // NAIL STRUCTURES (7-11)
-    {
-        topic: "Nails",
-        question: "What is the growth center of the nail that produces new nail cells?",
-        options: ["Nail bed", "Nail plate", "Nail matrix", "Lunula"],
-        answer: 2,
-        explanation: "The nail matrix is the growth center that produces new nail cells."
-    },
-    {
-        topic: "Nails",
-        question: "The visible white crescent at the base of the nail is called the:",
-        options: ["Cuticle", "Hyponychium", "Lunula", "Nail fold"],
-        answer: 2,
-        explanation: "The lunula is the visible white crescent at the base of the nail, indicating active nail growth."
-    },
-    {
-        topic: "Nails",
-        question: "Which structure seals the space between the nail plate and skin, preventing infection?",
-        options: ["Hyponychium", "Nail folds", "Cuticle (Eponychium)", "Free edge"],
-        answer: 2,
-        explanation: "The cuticle seals the space between the nail plate and skin, preventing infection."
-    },
-    {
-        topic: "Nails",
-        question: "The hard keratin structure that protects the fingertip and aids in fine manipulation is the:",
-        options: ["Nail bed", "Nail plate", "Nail matrix", "Nail folds"],
-        answer: 1,
-        explanation: "The nail plate is the hard keratin structure that protects the fingertip and aids in fine manipulation."
-    },
-    {
-        topic: "Nails",
-        question: "The hyponychium functions to:",
-        options: ["Produce new nail cells", "Seal the space between nail and skin", "Protect the free edge and prevent pathogen entry", "Surround and protect nail edges"],
-        answer: 2,
-        explanation: "The hyponychium is a protective barrier under the free edge of the nail that prevents pathogen entry."
-    },
+    // NAILS (7-11)
+    { topic: "Nails", question: "What is the growth center of the nail that produces new nail cells?", options: ["Nail bed", "Nail plate", "Nail matrix", "Lunula"], answer: 2, explanation: "The nail matrix is the growth center that produces new nail cells." },
+    { topic: "Nails", question: "The visible white crescent at the base of the nail is called the:", options: ["Cuticle", "Hyponychium", "Lunula", "Nail fold"], answer: 2, explanation: "The lunula is the visible white crescent at the base of the nail." },
+    { topic: "Nails", question: "Which structure seals the space between the nail plate and skin, preventing infection?", options: ["Hyponychium", "Nail folds", "Cuticle (Eponychium)", "Free edge"], answer: 2, explanation: "The cuticle seals the space between the nail plate and skin, preventing infection." },
+    { topic: "Nails", question: "The hard keratin structure that protects the fingertip and aids in fine manipulation is the:", options: ["Nail bed", "Nail plate", "Nail matrix", "Nail folds"], answer: 1, explanation: "The nail plate is the hard keratin structure that protects the fingertip." },
+    { topic: "Nails", question: "The hyponychium functions to:", options: ["Produce new nail cells", "Seal the space between nail and skin", "Protect the free edge and prevent pathogen entry", "Surround and protect nail edges"], answer: 2, explanation: "The hyponychium is a protective barrier under the free edge of the nail." },
 
-    // SKELETAL SYSTEM (12-20)
-    {
-        topic: "Skeletal",
-        question: "How many bones make up the adult human skeleton?",
-        options: ["180", "206", "212", "220"],
-        answer: 1,
-        explanation: "The adult human skeleton consists of 206 bones, divided into axial (80) and appendicular (126) skeletons."
-    },
-    {
-        topic: "Skeletal",
-        question: "The axial skeleton consists of how many bones?",
-        options: ["80", "126", "206", "56"],
-        answer: 0,
-        explanation: "The axial skeleton forms the central axis and contains 80 bones."
-    },
-    {
-        topic: "Skeletal",
-        question: "Which of the following is NOT a cranial bone?",
-        options: ["Frontal", "Parietal", "Mandible", "Occipital"],
-        answer: 2,
-        explanation: "The mandible is a facial bone, not a cranial bone. Cranial bones include frontal, parietal, temporal, occipital, sphenoid, and ethmoid."
-    },
-    {
-        topic: "Skeletal",
-        question: "How many pairs of ribs are there in the human body?",
-        options: ["10", "12", "14", "16"],
-        answer: 1,
-        explanation: "There are 12 pairs of ribs (24 total): 7 true ribs, 3 false ribs, and 2 floating ribs."
-    },
-    {
-        topic: "Skeletal",
-        question: "The appendicular skeleton consists of how many bones?",
-        options: ["80", "126", "206", "100"],
-        answer: 1,
-        explanation: "The appendicular skeleton consists of 126 bones, including the pectoral girdle, upper limbs, pelvic girdle, and lower limbs."
-    },
-    {
-        topic: "Skeletal",
-        question: "Which bone is NOT part of the axial skeleton?",
-        options: ["Sternum", "Vertebral column", "Skull", "Femur"],
-        answer: 3,
-        explanation: "The femur is part of the appendicular skeleton (lower limb), not the axial skeleton."
-    },
-    {
-        topic: "Skeletal",
-        question: "The hyoid bone is located in the:",
-        options: ["Skull", "Neck", "Chest", "Pelvis"],
-        answer: 1,
-        explanation: "The hyoid bone is located in the neck and supports the tongue and swallowing."
-    },
-    {
-        topic: "Skeletal",
-        question: "How many vertebrae make up the vertebral column?",
-        options: ["26", "30", "33", "24"],
-        answer: 0,
-        explanation: "The vertebral column has 26 bones: 7 cervical, 12 thoracic, 5 lumbar, 1 sacrum, and 1 coccyx."
-    },
-    {
-        topic: "Skeletal",
-        question: "The auditory ossicles (malleus, incus, stapes) are located in the:",
-        options: ["Inner ear", "Middle ear", "Outer ear", "Skull"],
-        answer: 1,
-        explanation: "The auditory ossicles are located in the middle ear and transmit sound vibrations."
-    },
+    // SKELETAL (12-20)
+    { topic: "Skeletal", question: "How many bones make up the adult human skeleton?", options: ["180", "206", "212", "220"], answer: 1, explanation: "The adult human skeleton consists of 206 bones." },
+    { topic: "Skeletal", question: "The axial skeleton consists of how many bones?", options: ["80", "126", "206", "56"], answer: 0, explanation: "The axial skeleton forms the central axis and contains 80 bones." },
+    { topic: "Skeletal", question: "Which of the following is NOT a cranial bone?", options: ["Frontal", "Parietal", "Mandible", "Occipital"], answer: 2, explanation: "The mandible is a facial bone, not a cranial bone." },
+    { topic: "Skeletal", question: "How many pairs of ribs are there in the human body?", options: ["10", "12", "14", "16"], answer: 1, explanation: "There are 12 pairs of ribs: 7 true, 3 false, and 2 floating." },
+    { topic: "Skeletal", question: "The appendicular skeleton consists of how many bones?", options: ["80", "126", "206", "100"], answer: 1, explanation: "The appendicular skeleton consists of 126 bones." },
+    { topic: "Skeletal", question: "Which bone is NOT part of the axial skeleton?", options: ["Sternum", "Vertebral column", "Skull", "Femur"], answer: 3, explanation: "The femur is part of the appendicular skeleton." },
+    { topic: "Skeletal", question: "The hyoid bone is located in the:", options: ["Skull", "Neck", "Chest", "Pelvis"], answer: 1, explanation: "The hyoid bone is located in the neck and supports the tongue." },
+    { topic: "Skeletal", question: "How many vertebrae make up the vertebral column?", options: ["26", "30", "33", "24"], answer: 0, explanation: "The vertebral column has 26 bones." },
+    { topic: "Skeletal", question: "The auditory ossicles are located in the:", options: ["Inner ear", "Middle ear", "Outer ear", "Skull"], answer: 1, explanation: "The auditory ossicles are located in the middle ear." },
 
     // NERVOUS SYSTEM (21-30)
-    {
-        topic: "Nervous",
-        question: "Which part of the brain is responsible for thinking, memory, intelligence, and voluntary movement?",
-        options: ["Cerebellum", "Cerebrum", "Medulla oblongata", "Hypothalamus"],
-        answer: 1,
-        explanation: "The cerebrum is responsible for higher functions including thinking, memory, intelligence, and voluntary movement."
-    },
-    {
-        topic: "Nervous",
-        question: "The thalamus functions as a:",
-        options: ["Relay station for sensory impulses", "Control center for temperature", "Balance and coordination center", "Breathing control center"],
-        answer: 0,
-        explanation: "The thalamus acts as a relay station for sensory impulses to the cerebral cortex."
-    },
-    {
-        topic: "Nervous",
-        question: "Which part of the brain controls temperature, hunger, thirst, and hormones?",
-        options: ["Cerebrum", "Thalamus", "Hypothalamus", "Pons"],
-        answer: 2,
-        explanation: "The hypothalamus controls temperature, hunger, thirst, hormones, and autonomic functions."
-    },
-    {
-        topic: "Nervous",
-        question: "The cerebellum is responsible for:",
-        options: ["Visual and auditory reflexes", "Balance, posture, and coordination", "Heartbeat and breathing", "Memory and learning"],
-        answer: 1,
-        explanation: "The cerebellum controls balance, posture, and coordination of movement."
-    },
-    {
-        topic: "Nervous",
-        question: "Which lobe of the brain is responsible for vision?",
-        options: ["Frontal lobe", "Temporal lobe", "Occipital lobe", "Parietal lobe"],
-        answer: 2,
-        explanation: "The occipital lobe interprets visual information."
-    },
-    {
-        topic: "Nervous",
-        question: "The medulla oblongata controls:",
-        options: ["Voluntary movement", "Thinking and reasoning", "Heartbeat, breathing, and blood pressure", "Balance and coordination"],
-        answer: 2,
-        explanation: "The medulla oblongata controls vital functions including heartbeat, breathing, and blood pressure."
-    },
-    {
-        topic: "Nervous",
-        question: "Broca's area, responsible for speech production, is located in which lobe?",
-        options: ["Temporal lobe", "Parietal lobe", "Frontal lobe", "Occipital lobe"],
-        answer: 2,
-        explanation: "Broca's area, responsible for speech production, is located in the frontal lobe."
-    },
-    {
-        topic: "Nervous",
-        question: "Wernicke's area, responsible for understanding language, is located in which lobe?",
-        options: ["Frontal lobe", "Temporal lobe", "Parietal lobe", "Occipital lobe"],
-        answer: 1,
-        explanation: "Wernicke's area, responsible for language comprehension, is located in the temporal lobe."
-    },
-    {
-        topic: "Nervous",
-        question: "How many segments make up the spinal cord?",
-        options: ["30", "31", "32", "33"],
-        answer: 1,
-        explanation: "The spinal cord has 31 segments: 8 cervical, 12 thoracic, 5 lumbar, 5 sacral, and 1 coccygeal."
-    },
-    {
-        topic: "Nervous",
-        question: "The dorsal (posterior) root of the spinal nerve functions to:",
-        options: ["Send motor impulses to muscles", "Receive sensory input to the spinal cord", "Control autonomic functions", "Coordinate reflexes"],
-        answer: 1,
-        explanation: "The dorsal root carries sensory input from receptors to the spinal cord."
-    },
+    { topic: "Nervous", question: "Which part of the brain is responsible for thinking, memory, and voluntary movement?", options: ["Cerebellum", "Cerebrum", "Medulla oblongata", "Hypothalamus"], answer: 1, explanation: "The cerebrum is responsible for higher functions." },
+    { topic: "Nervous", question: "The thalamus functions as a:", options: ["Relay station for sensory impulses", "Control center for temperature", "Balance center", "Breathing center"], answer: 0, explanation: "The thalamus acts as a relay station for sensory impulses." },
+    { topic: "Nervous", question: "Which part of the brain controls temperature, hunger, thirst, and hormones?", options: ["Cerebrum", "Thalamus", "Hypothalamus", "Pons"], answer: 2, explanation: "The hypothalamus controls temperature, hunger, thirst, and hormones." },
+    { topic: "Nervous", question: "The cerebellum is responsible for:", options: ["Visual reflexes", "Balance, posture, and coordination", "Heartbeat and breathing", "Memory"], answer: 1, explanation: "The cerebellum controls balance, posture, and coordination." },
+    { topic: "Nervous", question: "Which lobe of the brain is responsible for vision?", options: ["Frontal", "Temporal", "Occipital", "Parietal"], answer: 2, explanation: "The occipital lobe interprets visual information." },
+    { topic: "Nervous", question: "The medulla oblongata controls:", options: ["Voluntary movement", "Thinking", "Heartbeat, breathing, and blood pressure", "Balance"], answer: 2, explanation: "The medulla oblongata controls vital functions." },
+    { topic: "Nervous", question: "Broca's area, responsible for speech production, is located in which lobe?", options: ["Temporal", "Parietal", "Frontal", "Occipital"], answer: 2, explanation: "Broca's area is located in the frontal lobe." },
+    { topic: "Nervous", question: "Wernicke's area, responsible for understanding language, is located in which lobe?", options: ["Frontal", "Temporal", "Parietal", "Occipital"], answer: 1, explanation: "Wernicke's area is located in the temporal lobe." },
+    { topic: "Nervous", question: "How many segments make up the spinal cord?", options: ["30", "31", "32", "33"], answer: 1, explanation: "The spinal cord has 31 segments." },
+    { topic: "Nervous", question: "The dorsal root of the spinal nerve functions to:", options: ["Send motor impulses", "Receive sensory input", "Control autonomic functions", "Coordinate reflexes"], answer: 1, explanation: "The dorsal root carries sensory input to the spinal cord." },
 
-    // ENDOCRINE SYSTEM (31-38)
-    {
-        topic: "Endocrine",
-        question: "Which gland is known as the 'master gland' of the endocrine system?",
-        options: ["Thyroid gland", "Adrenal gland", "Pituitary gland", "Pineal gland"],
-        answer: 2,
-        explanation: "The pituitary gland is called the 'master gland' because it controls other endocrine glands."
-    },
-    {
-        topic: "Endocrine",
-        question: "Which hormone does the thyroid gland produce that regulates metabolism?",
-        options: ["Insulin", "Thyroxine (T4)", "Adrenaline", "Cortisol"],
-        answer: 1,
-        explanation: "Thyroxine (T4) produced by the thyroid regulates metabolism, growth, and energy."
-    },
-    {
-        topic: "Endocrine",
-        question: "Which hormone increases blood calcium levels?",
-        options: ["Calcitonin", "Parathyroid hormone (PTH)", "Insulin", "Aldosterone"],
-        answer: 1,
-        explanation: "Parathyroid hormone (PTH) increases blood calcium levels by releasing calcium from bones."
-    },
-    {
-        topic: "Endocrine",
-        question: "Which hormone is responsible for the 'fight or flight' response?",
-        options: ["Cortisol", "Aldosterone", "Adrenaline", "Melatonin"],
-        answer: 2,
-        explanation: "Adrenaline (epinephrine) from the adrenal medulla triggers the 'fight or flight' response."
-    },
-    {
-        topic: "Endocrine",
-        question: "The zona glomerulosa of the adrenal cortex secretes:",
-        options: ["Cortisol", "Aldosterone", "Androgens", "Adrenaline"],
-        answer: 1,
-        explanation: "The zona glomerulosa secretes aldosterone, which regulates salt and water balance."
-    },
-    {
-        topic: "Endocrine",
-        question: "Which hormone lowers blood glucose levels?",
-        options: ["Glucagon", "Insulin", "Cortisol", "Growth hormone"],
-        answer: 1,
-        explanation: "Insulin lowers blood glucose by allowing cells to absorb glucose from the bloodstream."
-    },
-    {
-        topic: "Endocrine",
-        question: "Melatonin, which regulates the sleep-wake cycle, is produced by the:",
-        options: ["Pineal gland", "Thymus", "Pituitary gland", "Hypothalamus"],
-        answer: 0,
-        explanation: "The pineal gland produces melatonin, which regulates the sleep-wake cycle."
-    },
-    {
-        topic: "Endocrine",
-        question: "Thymosin, which is important for T-lymphocyte maturation, is produced by the:",
-        options: ["Thyroid", "Thymus", "Adrenal", "Pancreas"],
-        answer: 1,
-        explanation: "The thymus produces thymosin, which is essential for T-lymphocyte maturation and immunity."
-    },
+    // ENDOCRINE (31-38)
+    { topic: "Endocrine", question: "Which gland is known as the 'master gland'?", options: ["Thyroid", "Adrenal", "Pituitary", "Pineal"], answer: 2, explanation: "The pituitary gland is called the 'master gland'." },
+    { topic: "Endocrine", question: "Which hormone does the thyroid produce that regulates metabolism?", options: ["Insulin", "Thyroxine (T4)", "Adrenaline", "Cortisol"], answer: 1, explanation: "Thyroxine (T4) regulates metabolism." },
+    { topic: "Endocrine", question: "Which hormone increases blood calcium levels?", options: ["Calcitonin", "Parathyroid hormone (PTH)", "Insulin", "Aldosterone"], answer: 1, explanation: "Parathyroid hormone (PTH) increases blood calcium." },
+    { topic: "Endocrine", question: "Which hormone is responsible for the 'fight or flight' response?", options: ["Cortisol", "Aldosterone", "Adrenaline", "Melatonin"], answer: 2, explanation: "Adrenaline triggers the 'fight or flight' response." },
+    { topic: "Endocrine", question: "The zona glomerulosa of the adrenal cortex secretes:", options: ["Cortisol", "Aldosterone", "Androgens", "Adrenaline"], answer: 1, explanation: "The zona glomerulosa secretes aldosterone." },
+    { topic: "Endocrine", question: "Which hormone lowers blood glucose levels?", options: ["Glucagon", "Insulin", "Cortisol", "Growth hormone"], answer: 1, explanation: "Insulin lowers blood glucose levels." },
+    { topic: "Endocrine", question: "Melatonin, which regulates sleep, is produced by the:", options: ["Pineal gland", "Thymus", "Pituitary", "Hypothalamus"], answer: 0, explanation: "The pineal gland produces melatonin." },
+    { topic: "Endocrine", question: "Thymosin, important for T-lymphocyte maturation, is produced by the:", options: ["Thyroid", "Thymus", "Adrenal", "Pancreas"], answer: 1, explanation: "The thymus produces thymosin." },
 
-    // CARDIOVASCULAR SYSTEM (39-45)
-    {
-        topic: "Cardiovascular",
-        question: "Which chamber of the heart receives deoxygenated blood from the body?",
-        options: ["Left atrium", "Left ventricle", "Right atrium", "Right ventricle"],
-        answer: 2,
-        explanation: "The right atrium receives deoxygenated blood from the body via the superior and inferior vena cava."
-    },
-    {
-        topic: "Cardiovascular",
-        question: "Blood is pumped from the right ventricle to the lungs through the:",
-        options: ["Aorta", "Pulmonary arteries", "Pulmonary veins", "Coronary arteries"],
-        answer: 1,
-        explanation: "The right ventricle pumps deoxygenated blood through the pulmonary arteries to the lungs for oxygenation."
-    },
-    {
-        topic: "Cardiovascular",
-        question: "Oxygenated blood returns to the heart from the lungs via the:",
-        options: ["Pulmonary arteries", "Pulmonary veins", "Aorta", "Vena cava"],
-        answer: 1,
-        explanation: "Oxygenated blood returns from the lungs to the left atrium through the pulmonary veins."
-    },
-    {
-        topic: "Cardiovascular",
-        question: "Which valve separates the left atrium from the left ventricle?",
-        options: ["Tricuspid valve", "Pulmonary valve", "Mitral (bicuspid) valve", "Aortic valve"],
-        answer: 2,
-        explanation: "The mitral (bicuspid) valve separates the left atrium from the left ventricle."
-    },
-    {
-        topic: "Cardiovascular",
-        question: "The SA node, known as the 'pacemaker of the heart,' is located in the:",
-        options: ["Left atrium", "Right atrium", "Left ventricle", "Interventricular septum"],
-        answer: 1,
-        explanation: "The SA node is located in the right atrium near the superior vena cava and initiates electrical impulses."
-    },
-    {
-        topic: "Cardiovascular",
-        question: "On an ECG, the P wave represents:",
-        options: ["Ventricular depolarization", "Ventricular repolarization", "Atrial depolarization", "Purkinje fiber repolarization"],
-        answer: 2,
-        explanation: "The P wave represents atrial depolarization, causing atrial contraction."
-    },
-    {
-        topic: "Cardiovascular",
-        question: "The QRS complex on an ECG represents:",
-        options: ["Atrial depolarization", "Ventricular depolarization", "Ventricular repolarization", "Atrial repolarization"],
-        answer: 1,
-        explanation: "The QRS complex represents ventricular depolarization, causing ventricular contraction."
-    },
+    // CARDIOVASCULAR (39-45)
+    { topic: "Cardiovascular", question: "Which chamber receives deoxygenated blood from the body?", options: ["Left atrium", "Left ventricle", "Right atrium", "Right ventricle"], answer: 2, explanation: "The right atrium receives deoxygenated blood." },
+    { topic: "Cardiovascular", question: "Blood is pumped from the right ventricle to the lungs through the:", options: ["Aorta", "Pulmonary arteries", "Pulmonary veins", "Coronary arteries"], answer: 1, explanation: "The right ventricle pumps blood through the pulmonary arteries." },
+    { topic: "Cardiovascular", question: "Oxygenated blood returns from the lungs via the:", options: ["Pulmonary arteries", "Pulmonary veins", "Aorta", "Vena cava"], answer: 1, explanation: "Oxygenated blood returns through the pulmonary veins." },
+    { topic: "Cardiovascular", question: "Which valve separates the left atrium from the left ventricle?", options: ["Tricuspid", "Pulmonary", "Mitral (bicuspid)", "Aortic"], answer: 2, explanation: "The mitral (bicuspid) valve separates the left atrium and ventricle." },
+    { topic: "Cardiovascular", question: "The SA node, the 'pacemaker,' is located in the:", options: ["Left atrium", "Right atrium", "Left ventricle", "Septum"], answer: 1, explanation: "The SA node is located in the right atrium." },
+    { topic: "Cardiovascular", question: "On an ECG, the P wave represents:", options: ["Ventricular depolarization", "Ventricular repolarization", "Atrial depolarization", "Purkinje repolarization"], answer: 2, explanation: "The P wave represents atrial depolarization." },
+    { topic: "Cardiovascular", question: "The QRS complex on an ECG represents:", options: ["Atrial depolarization", "Ventricular depolarization", "Ventricular repolarization", "Atrial repolarization"], answer: 1, explanation: "The QRS complex represents ventricular depolarization." },
 
-    // RESPIRATORY SYSTEM (46-50)
-    {
-        topic: "Respiratory",
-        question: "Which of the following is part of the UPPER respiratory tract?",
-        options: ["Trachea", "Bronchi", "Pharynx", "Alveoli"],
-        answer: 2,
-        explanation: "The pharynx is part of the upper respiratory tract, along with the nose, nasal cavity, and sinuses."
-    },
-    {
-        topic: "Respiratory",
-        question: "Gas exchange occurs in which structure of the respiratory system?",
-        options: ["Bronchioles", "Terminal bronchioles", "Alveoli", "Trachea"],
-        answer: 2,
-        explanation: "Gas exchange occurs in the alveoli, where oxygen enters the blood and carbon dioxide is removed."
-    },
-    {
-        topic: "Respiratory",
-        question: "The larynx is part of the:",
-        options: ["Upper respiratory tract", "Lower respiratory tract", "Digestive system", "Endocrine system"],
-        answer: 1,
-        explanation: "The larynx is part of the lower respiratory tract, along with the trachea, bronchi, and lungs."
-    },
-    {
-        topic: "Respiratory",
-        question: "Which structure warms, moistens, and filters air entering the respiratory system?",
-        options: ["Larynx", "Trachea", "Nasal cavity", "Bronchi"],
-        answer: 2,
-        explanation: "The nasal cavity warms, moistens, and filters air through nasal hairs and mucus."
-    },
-    {
-        topic: "Respiratory",
-        question: "The trachea divides into:",
-        options: ["Bronchioles", "Primary bronchi", "Alveoli", "Larynx"],
-        answer: 1,
-        explanation: "The trachea divides into the right and left primary bronchi, which enter the lungs."
-    }
+    // RESPIRATORY (46-50)
+    { topic: "Respiratory", question: "Which is part of the UPPER respiratory tract?", options: ["Trachea", "Bronchi", "Pharynx", "Alveoli"], answer: 2, explanation: "The pharynx is part of the upper respiratory tract." },
+    { topic: "Respiratory", question: "Gas exchange occurs in which structure?", options: ["Bronchioles", "Terminal bronchioles", "Alveoli", "Trachea"], answer: 2, explanation: "Gas exchange occurs in the alveoli." },
+    { topic: "Respiratory", question: "The larynx is part of the:", options: ["Upper respiratory tract", "Lower respiratory tract", "Digestive system", "Endocrine system"], answer: 1, explanation: "The larynx is part of the lower respiratory tract." },
+    { topic: "Respiratory", question: "Which structure warms, moistens, and filters air?", options: ["Larynx", "Trachea", "Nasal cavity", "Bronchi"], answer: 2, explanation: "The nasal cavity warms, moistens, and filters air." },
+    { topic: "Respiratory", question: "The trachea divides into:", options: ["Bronchioles", "Primary bronchi", "Alveoli", "Larynx"], answer: 1, explanation: "The trachea divides into the primary bronchi." }
 ];
 
-// ===== EXAM VARIABLES =====
+// ============================================================
+// EXAM FUNCTIONS
+// ============================================================
 let currentQuestionIndex = 0;
 let score = 0;
 let selectedOption = null;
@@ -613,8 +317,6 @@ let timerInterval = null;
 let examStarted = false;
 let userAnswers = [];
 let currentFilter = 'all';
-
-// ===== FUNCTIONS =====
 
 function showPage(pageId) {
     document.getElementById('loginPage').classList.add('hidden');
@@ -652,14 +354,14 @@ function loadQuestion() {
         return;
     }
     const q = questions[currentQuestionIndex];
-    document.getElementById('questionNumber').textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
-    document.getElementById('questionText').innerHTML = `<span class="topic-tag">${q.topic}</span><br><br>${q.question}`;
+    document.getElementById('questionNumber').textContent = 'Question ' + (currentQuestionIndex + 1) + ' of ' + questions.length;
+    document.getElementById('questionText').innerHTML = '<span class="topic-tag">' + q.topic + '</span><br><br>' + q.question;
     document.getElementById('studentInfo').textContent = '👤 ' + localStorage.getItem('studentName') + ' | ID: ' + localStorage.getItem('studentId');
     
     const container = document.getElementById('optionsContainer');
     container.innerHTML = '';
     const labels = ['A', 'B', 'C', 'D'];
-    q.options.forEach((option, index) => {
+    q.options.forEach(function(option, index) {
         const btn = document.createElement('button');
         btn.innerHTML = '<span style="font-weight:bold;">' + labels[index] + '.</span> ' + option;
         btn.onclick = function() { selectOption(index); };
@@ -672,8 +374,12 @@ function loadQuestion() {
 function selectOption(index) {
     selectedOption = index;
     const buttons = document.querySelectorAll('#optionsContainer button');
-    buttons.forEach((btn, i) => {
-        btn.classList.toggle('selected', i === index);
+    buttons.forEach(function(btn, i) {
+        if (i === index) {
+            btn.classList.add('selected');
+        } else {
+            btn.classList.remove('selected');
+        }
     });
 }
 
@@ -683,7 +389,6 @@ function nextQuestion() {
         return;
     }
     userAnswers.push(selectedOption);
-    
     if (questions[currentQuestionIndex].answer === selectedOption) {
         score++;
     }
@@ -692,18 +397,18 @@ function nextQuestion() {
 }
 
 function updateProgress() {
-    const progress = ((currentQuestionIndex) / questions.length) * 100;
+    var progress = ((currentQuestionIndex) / questions.length) * 100;
     document.getElementById('progressFill').style.width = progress + '%';
 }
 
 function showResult() {
     clearInterval(timerInterval);
     showPage('resultPage');
-    const percentage = (score / questions.length) * 100;
+    var percentage = (score / questions.length) * 100;
     document.getElementById('scoreDisplay').textContent = score + '/' + questions.length;
     document.getElementById('percentageDisplay').textContent = Math.round(percentage) + '%';
     
-    let message = '';
+    var message = '';
     if (percentage >= 80) message = '🎉 Excellent! You are well prepared for NMCN!';
     else if (percentage >= 60) message = '👍 Good job! Keep practicing!';
     else if (percentage >= 40) message = '📚 Need more study. Review weak areas.';
@@ -714,26 +419,79 @@ function showResult() {
 }
 
 function displayReview() {
-    const container = document.getElementById('reviewContainer');
+    var container = document.getElementById('reviewContainer');
     container.innerHTML = '';
+    var labels = ['A', 'B', 'C', 'D'];
     
-    const labels = ['A', 'B', 'C', 'D'];
-    
-    questions.forEach((q, index) => {
-        const userAnswer = userAnswers[index] !== undefined ? userAnswers[index] : -1;
-        const isCorrect = userAnswer === q.answer;
+    questions.forEach(function(q, index) {
+        var userAnswer = userAnswers[index] !== undefined ? userAnswers[index] : -1;
+        var isCorrect = userAnswer === q.answer;
         
-        // Apply filter
         if (currentFilter === 'correct' && !isCorrect) return;
         if (currentFilter === 'wrong' && isCorrect) return;
         
-        const div = document.createElement('div');
+        var div = document.createElement('div');
         div.className = 'review-item ' + (isCorrect ? 'correct-review' : 'wrong-review');
         
-        let answerText = '';
+        var answerText = '';
         if (userAnswer === -1) {
             answerText = '<span class="wrong-text">Not answered</span>';
         } else {
             answerText = '<span class="your-answer">Your answer: <strong>' + labels[userAnswer] + '</strong></span>';
             if (!isCorrect) {
-                answerText += ' | <span class
+                answerText += ' | <span class="correct-text">Correct: <strong>' + labels[q.answer] + '</strong></span>';
+            }
+        }
+        
+        div.innerHTML = '<div class="review-question">Q' + (index + 1) + ': ' + q.question + '</div>' +
+                        '<div class="review-answer">' + answerText + (isCorrect ? ' ✅' : ' ❌') + '</div>' +
+                        '<div class="review-explanation"><strong>💡 Explanation:</strong> ' + q.explanation + '</div>';
+        container.appendChild(div);
+    });
+}
+
+function filterReview(filter) {
+    currentFilter = filter;
+    document.getElementById('filterAll').classList.remove('active');
+    document.getElementById('filterCorrect').classList.remove('active');
+    document.getElementById('filterWrong').classList.remove('active');
+    if (filter === 'all') document.getElementById('filterAll').classList.add('active');
+    if (filter === 'correct') document.getElementById('filterCorrect').classList.add('active');
+    if (filter === 'wrong') document.getElementById('filterWrong').classList.add('active');
+    displayReview();
+}
+
+function startTimer() {
+    var timeLeft = timer * 60;
+    timerInterval = setInterval(function() {
+        timeLeft--;
+        var mins = Math.floor(timeLeft / 60);
+        var secs = timeLeft % 60;
+        document.getElementById('timerDisplay').textContent = '⏱️ ' + String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            alert('⏰ Time is up! Submitting your exam.');
+            showResult();
+        }
+    }, 1000);
+}
+
+function restartExam() {
+    localStorage.clear();
+    currentQuestionIndex = 0;
+    score = 0;
+    selectedOption = null;
+    examStarted = false;
+    userAnswers = [];
+    clearInterval(timerInterval);
+    showPage('loginPage');
+    document.getElementById('studentName').value = '';
+    document.getElementById('studentId').value = '';
+    document.getElementById('timerDisplay').textContent = '⏱️ 45:00';
+    document.getElementById('progressFill').style.width = '0%';
+}
+
+showPage('loginPage');
+</script>
+</body>
+</html>
